@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import Input from '../components/Input';
 import Header from '../components/Header';
@@ -8,17 +8,25 @@ import TabBar from '../containers/TabBar';
 // import ToDoList from './ToDoListFilling';
 
 const HomeScreen = () => {
+  const [list, setList] = useState(0);
+  const [inputActivity, setInputActivity] = useState({
+    activity: '',
+  });
+
   return (
     <View style={styles.sectionContainer}>
       <View style={styles.container}>
         <Header />
-        <Input />
+        <Input
+          inputActivity={inputActivity}
+          setInputActivity={setInputActivity}
+        />
         <SubmitButton />
         <ScrollView>
-          <ToDoList />
+          <ToDoList list={list} />
         </ScrollView>
       </View>
-      <TabBar />
+      <TabBar setList={setList} />
     </View>
   );
 };

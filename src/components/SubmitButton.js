@@ -5,7 +5,7 @@ const SubmitButton = () => (
   <View style={styles.buttonContainer}>
     <View style={styles.buttonFlex}>
       <TouchableOpacity underlayColor="#efefef" style={styles.button}>
-        <Text style={styles.submit}>Submit</Text>
+        <Text style={styles.submit}>Add</Text>
       </TouchableOpacity>
       <TouchableOpacity underlayColor="#efefef" style={styles.buttonCancel}>
         <Text style={styles.cancel}>Cancel</Text>
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 15,
     backgroundColor: 'grey',
-    // width: '30%',
+    width: '22%',
     borderWidth: 1,
     borderColor: 'rgba(0,0,0,.1)',
     borderRadius: 10,
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 15,
     backgroundColor: 'whitesmoke',
-    // width: '30%',
+    width: '22%',
     borderWidth: 1,
     borderColor: 'rgba(0,0,0,.1)',
     borderRadius: 10,

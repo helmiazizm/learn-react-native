@@ -1,11 +1,19 @@
 import React from 'react';
 import {Text, TouchableOpacity, StyleSheet} from 'react-native';
 
-const TabBarItem = ({text}) => (
-  <TouchableOpacity style={[styles.item, styles.border]}>
-    <Text style={[styles.itemText]}>{text}</Text>
-  </TouchableOpacity>
-);
+const TabBarItem = ({text, index, setList}) => {
+  const handlePress = index => {
+    setList(index);
+  };
+
+  return (
+    <TouchableOpacity
+      style={[styles.item, styles.border]}
+      onPress={() => handlePress(index)}>
+      <Text style={[styles.itemText]}>{text}</Text>
+    </TouchableOpacity>
+  );
+};
 const styles = StyleSheet.create({
   item: {
     flex: 1,
@@ -24,9 +32,6 @@ const styles = StyleSheet.create({
   },
   selected: {
     backgroundColor: 'whitesmoke',
-  },
-  bold: {
-    fontWeight: 'bold',
   },
 });
 export default TabBarItem;

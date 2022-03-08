@@ -1,14 +1,34 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import ToDoButton from '../components/ToDoButtons';
+import Storage from '../store/Storage';
 
-const ToDo = ({text}) => {
+const ToDo = ({text, index, done, handleDone, handleDelete}) => {
+  const {allActivity, allFinished, setAllActivity, setAllFinished} = Storage();
+
   return (
     <View style={styles.todoContainer}>
-      <Text style={styles.todoText}>{text}</Text>
+      <Text
+        style={[
+          styles.todoText,
+          {textDecorationLine: done[index] ? 'line-through' : null},
+        ]}>
+        {text}
+      </Text>
       <View style={styles.buttons}>
-        <ToDoButton buttonConfig={{color: 'green'}} text="Done" />
-        <ToDoButton buttonConfig={{color: 'red'}} text="Delete" />
+        <ToDoButton
+          buttonConfig={{color: 'green'}}
+          text={done[index] ? 'Undo' : 'Done'}
+          index={index}
+          handleDone={handleDone}
+        />
+        <ToDoButton
+          buttonConfig={{color: 'red'}}
+          text="Delete"
+          index={index}
+          act={text}
+          handleDelete={handleDelete}
+        />
       </View>
     </View>
   );

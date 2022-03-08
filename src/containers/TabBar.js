@@ -2,13 +2,17 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import TabBarItem from '../components/TabBarItem';
 
-const TabBar = () => (
-  <View style={styles.container}>
-    <TabBarItem text="All" />
-    <TabBarItem text="Finished" />
-    <TabBarItem text="Unfinished" />
-  </View>
-);
+const TabBar = ({setList}) => {
+  let items = ['All', 'Finished', 'Unfinished'];
+
+  return (
+    <View style={styles.container}>
+      {items.map((item, index) => {
+        return <TabBarItem text={item} index={index} setList={setList} />;
+      })}
+    </View>
+  );
+};
 const styles = StyleSheet.create({
   container: {
     height: 50,
