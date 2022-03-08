@@ -16,7 +16,7 @@ const ToDo = ({text}) => {
 
 const styles = StyleSheet.create({
   todoContainer: {
-    marginVertical: 8,
+    marginBottom: 15,
     backgroundColor: '#ffffff',
     borderWidth: 1,
     paddingHorizontal: 16,
