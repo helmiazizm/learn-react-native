@@ -3,19 +3,21 @@ import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
 const ToDoButton = ({
   buttonConfig,
-  text,
+  command,
   index,
   handleDone,
-  act,
+  text,
   handleDelete,
 }) => {
   return (
     <TouchableOpacity
       style={styles.button}
       onPress={
-        text !== 'Delete' ? () => handleDone(index) : () => handleDelete(act)
+        command !== 'Delete'
+          ? () => handleDone(index, text)
+          : () => handleDelete(text)
       }>
-      <Text style={{color: buttonConfig.color}}>{text}</Text>
+      <Text style={{color: buttonConfig.color}}>{command}</Text>
     </TouchableOpacity>
   );
 };

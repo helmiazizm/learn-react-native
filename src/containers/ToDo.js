@@ -11,22 +11,23 @@ const ToDo = ({text, index, done, handleDone, handleDelete}) => {
       <Text
         style={[
           styles.todoText,
-          {textDecorationLine: done[index] ? 'line-through' : null},
+          {textDecorationLine: done[text] ? 'line-through' : null},
         ]}>
         {text}
       </Text>
       <View style={styles.buttons}>
         <ToDoButton
           buttonConfig={{color: 'green'}}
-          text={done[index] ? 'Undo' : 'Done'}
+          command={done[text] ? 'Undo' : 'Done'}
           index={index}
+          text={text}
           handleDone={handleDone}
         />
         <ToDoButton
           buttonConfig={{color: 'red'}}
-          text="Delete"
+          command="Delete"
           index={index}
-          act={text}
+          text={text}
           handleDelete={handleDelete}
         />
       </View>

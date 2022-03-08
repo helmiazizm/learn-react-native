@@ -1,10 +1,13 @@
 import React from 'react';
 import {Text, TouchableOpacity, View, StyleSheet} from 'react-native';
 
-const SubmitButton = () => (
+const SubmitButton = ({handleAddActivity}) => (
   <View style={styles.buttonContainer}>
     <View style={styles.buttonFlex}>
-      <TouchableOpacity underlayColor="#efefef" style={styles.button}>
+      <TouchableOpacity
+        underlayColor="#efefef"
+        style={styles.button}
+        onPress={() => handleAddActivity()}>
         <Text style={styles.submit}>Add</Text>
       </TouchableOpacity>
       <TouchableOpacity underlayColor="#efefef" style={styles.buttonCancel}>

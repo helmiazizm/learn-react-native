@@ -7,11 +7,16 @@ const ToDoList = ({list}) => {
   const {allActivity, allFinished, setAllActivity, setAllFinished} = Storage();
   const [done, setDone] = useState({});
 
-  const handleDone = index => {
+  const handleDone = (index, text) => {
     setDone({
       ...done,
-      [index]: !done[index],
+      [text]: !done[text],
     });
+    if (done[text]) {
+      setAllFinished(allFinished.filter(value => value !== text));
+    } else {
+      setAllFinished(allFinished => [...allFinished, text]);
+    }
   };
 
   const handleDelete = text => {

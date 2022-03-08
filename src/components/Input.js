@@ -1,11 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, TextInput} from 'react-native';
 
-const Input = ({inputActivity, setInputActivity}) => {
-  const handleInputActivity = act => {
-    setInputActivity({...inputActivity, activity: act});
-  };
-
+const Input = ({handleInputActivity}) => {
   return (
     <>
       <TextInput
