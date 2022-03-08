@@ -8,7 +8,7 @@
 
 import React from 'react';
 import Style from './src/assets/Style';
-import HomeScreen from './src/components/HomeScreen';
+import HomeScreen from './src/screen/HomeScreen';
 
 const App = () => {
   return <HomeScreen styles={Style} />;
