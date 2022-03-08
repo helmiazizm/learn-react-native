@@ -6,7 +6,7 @@ const HomeScreen = ({styles}) => {
   return (
     <View style={styles.sectionContainer}>
       <View style={styles.container}>
-        <Header styles={styles} />
+        <Header styles={styles} title="Todos" />
       </View>
     </View>
   );

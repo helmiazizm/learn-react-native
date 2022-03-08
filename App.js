@@ -7,11 +7,16 @@
  */
 
 import React from 'react';
-import Style from './src/assets/Style';
 import HomeScreen from './src/components/HomeScreen';
+import Flex from './src/screens/Flex';
+import LoginScreen from './src/screens/LoginScreen';
+import WelcomeScreen from './src/screens/WelcomeScreen';
 
 const App = () => {
-  return <HomeScreen styles={Style} />;
+  // return <HomeScreen styles={Style} />;
+  // return <LoginScreen />;
+  return <WelcomeScreen />;
+  // return <Flex />;
 };
 
 export default App;
