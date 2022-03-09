@@ -1,20 +1,24 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import TabBarItem from '../components/TabBarItem';
 
-const TabBar = ({list, setList}) => {
+const TabBar = () => {
   let items = ['All', 'Finished', 'Unfinished'];
+  const dispatch = useDispatch();
+  const setScreen = act => dispatch({type: act});
+  const screen = useSelector(state => state.screen.list);
 
   return (
     <View style={styles.container}>
       {items.map((item, index) => {
         return (
           <TabBarItem
-            list={list}
+            list={screen}
             key={`tabbaritem${index}`}
             text={item}
             index={index}
-            setList={setList}
+            setList={setScreen}
           />
         );
       })}

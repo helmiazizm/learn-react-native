@@ -1,19 +1,25 @@
 import React, {useState} from 'react';
+import {useDispatch} from 'react-redux';
 import Input from '../components/Input';
 import SubmitButton from '../components/SubmitButton';
+import {ActionType} from '../store/globalActionType';
 
-const Form = ({allActivity, setAllActivity}) => {
+const Form = () => {
   const [inputActivity, setInputActivity] = useState({
     activity: '',
   });
+  const dispatch = useDispatch();
+  const setActivityAdd = text => {
+    dispatch({type: ActionType.ADD, text: text});
+  };
 
   const handleInputActivity = act => {
     setInputActivity({...inputActivity, activity: act});
   };
 
   const handleAddActivity = () => {
-    setAllActivity([...allActivity, inputActivity.activity]);
-    setInputActivity({...inputActivity, activity: ''});
+    setActivityAdd(inputActivity.activity);
+    handleCancel();
   };
 
   const handleCancel = () => {
@@ -30,7 +36,6 @@ const Form = ({allActivity, setAllActivity}) => {
         handleAddActivity={handleAddActivity}
         handleCancel={handleCancel}
       />
-      {/* <Text>{allFinished[allFinished.length - 1]}</Text> */}
     </>
   );
 };

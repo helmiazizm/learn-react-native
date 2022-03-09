@@ -11,20 +11,17 @@ export const screenReducer = (state = screenState, action) => {
         ...state,
         list: 0,
       };
-      break;
     case ActionType.SCREEN.FINISHED:
       return {
         ...state,
         list: 1,
       };
-      break;
     case ActionType.SCREEN.UNFINISHED:
       return {
         ...state,
         list: 2,
       };
-      break;
     default:
-      break;
+      return state;
   }
 };

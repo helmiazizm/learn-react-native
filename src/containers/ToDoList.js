@@ -1,38 +1,38 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {ActionType} from '../store/globalActionType';
 import ToDo from './ToDo';
 
-const ToDoList = ({
-  list,
-  allActivity,
-  allFinished,
-  setAllActivity,
-  setAllFinished,
-}) => {
+const ToDoList = () => {
   const [done, setDone] = useState({});
+  const dispatch = useDispatch();
+  const setActivityDone = (doneAct, text) => {
+    dispatch({type: ActionType.DONE, done: doneAct, text: text});
+  };
+  const setActivityDelete = text => {
+    dispatch({type: ActionType.DELETE, text: text});
+  };
+  const activity = useSelector(state => state.action);
+  const screen = useSelector(state => state.screen);
 
   const handleDone = text => {
     setDone({
       ...done,
       [text]: !done[text],
     });
-    if (done[text]) {
-      setAllFinished(allFinished.filter(value => value !== text));
-    } else {
-      setAllFinished([...allFinished, text]);
-    }
+    setActivityDone(done[text], text);
   };
 
   const handleDelete = text => {
-    setAllActivity(allActivity.filter(value => value !== text));
-    setAllFinished(allFinished.filter(value => value !== text));
+    setActivityDelete(text);
   };
 
   let viewPage;
 
-  switch (list) {
+  switch (screen.list) {
     case 0:
-      viewPage = allActivity.map((act, index) => {
+      viewPage = activity.allActivity.map((act, index) => {
         return (
           <ToDo
             key={`todo0${index}`}
@@ -46,8 +46,8 @@ const ToDoList = ({
       });
       break;
     case 1:
-      viewPage = allActivity.map((act, index) => {
-        if (allFinished.includes(act) === true) {
+      viewPage = activity.allActivity.map((act, index) => {
+        if (activity.allFinished.includes(act) === true) {
           return (
             <ToDo
               key={`todo1${index}`}
@@ -62,8 +62,8 @@ const ToDoList = ({
       });
       break;
     case 2:
-      viewPage = allActivity.map((act, index) => {
-        if (allFinished.includes(act) === false) {
+      viewPage = activity.allActivity.map((act, index) => {
+        if (activity.allFinished.includes(act) === false) {
           return (
             <ToDo
               key={`todo2${index}`}

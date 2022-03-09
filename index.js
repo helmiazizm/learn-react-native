@@ -12,10 +12,10 @@ import rootReducer from './src/store/store';
 
 const store = createStore(rootReducer);
 
-const Application = () => {
+const Application = () => (
   <Provider store={store}>
     <App />
-  </Provider>;
-};
+  </Provider>
+);
 
 AppRegistry.registerComponent(appName, () => Application);

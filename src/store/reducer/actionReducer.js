@@ -21,14 +21,12 @@ export const actionReducer = (state = actionState, action) => {
         ...state,
         allActivity: [...state.allActivity, action.text],
       };
-      break;
     case ActionType.DELETE:
       return {
         ...state,
         allActivity: state.allActivity.filter(value => value !== action.text),
         allFinished: state.allFinished.filter(value => value !== action.text),
       };
-      break;
     case ActionType.DONE:
       if (action.done) {
         return {
@@ -41,9 +39,7 @@ export const actionReducer = (state = actionState, action) => {
           allFinished: [...state.allFinished, action.text],
         };
       }
-      break;
     default:
       return state;
-      break;
   }
 };
