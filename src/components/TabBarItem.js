@@ -8,13 +8,15 @@ const TabBarItem = ({list, text, index, setList}) => {
 
   return (
     <TouchableOpacity
-      style={[
-        styles.item,
-        styles.border,
-        {fontWeight: list === index ? 'bold' : null},
-      ]}
+      style={[styles.item, styles.border]}
       onPress={() => handlePress(index)}>
-      <Text style={[styles.itemText]}>{text}</Text>
+      <Text
+        style={[
+          styles.itemText,
+          {fontFamily: list === index ? 'Roboto-Bold' : 'Roboto-Light'},
+        ]}>
+        {text}
+      </Text>
     </TouchableOpacity>
   );
 };
