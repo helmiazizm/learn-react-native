@@ -22,6 +22,7 @@ const SubmitButton = ({handleAddActivity, handleCancel}) => (
 const styles = StyleSheet.create({
   buttonContainer: {
     alignItems: 'center',
+    marginBottom: 10,
   },
   buttonFlex: {
     flexDirection: 'row',
