@@ -1,11 +1,8 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import ToDoButton from '../components/ToDoButtons';
-import Storage from '../store/Storage';
 
 const ToDo = ({text, index, done, handleDone, handleDelete}) => {
-  const {allActivity, allFinished, setAllActivity, setAllFinished} = Storage();
-
   return (
     <View style={styles.todoContainer}>
       <Text
@@ -50,6 +47,7 @@ const styles = StyleSheet.create({
   },
   todoText: {
     fontSize: 16,
+    width: 200
   },
   buttons: {
     flex: 1,
