@@ -1,6 +1,4 @@
 import React, {useState} from 'react';
-import {Text} from 'react-native';
-// import { DevSettings, Text } from 'react-native';
 import Input from '../components/Input';
 import SubmitButton from '../components/SubmitButton';
 
@@ -15,6 +13,7 @@ const Form = ({allActivity, setAllActivity}) => {
 
   const handleAddActivity = () => {
     setAllActivity([...allActivity, inputActivity.activity]);
+    setInputActivity({...inputActivity, activity: ''});
   };
 
   const handleCancel = () => {

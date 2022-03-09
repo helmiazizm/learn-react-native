@@ -7,11 +7,10 @@
  */
 
 import React from 'react';
-import Style from './src/assets/Style';
 import HomeScreen from './src/screen/HomeScreen';
 
 const App = () => {
-  return <HomeScreen styles={Style} />;
+  return <HomeScreen />;
 };
 
 export default App;

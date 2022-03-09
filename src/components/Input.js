@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet, TextInput} from 'react-native';
 
 const Input = ({inputActivity, handleInputActivity}) => {
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingHorizontal: 16,
     borderColor: '#000000',
-    borderRadius: 20,
+    borderRadius: 30,
     backgroundColor: '#ffffff',
   },
 });

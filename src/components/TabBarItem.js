@@ -2,8 +2,8 @@ import React from 'react';
 import {Text, TouchableOpacity, StyleSheet} from 'react-native';
 
 const TabBarItem = ({list, text, index, setList}) => {
-  const handlePress = index => {
-    setList(index);
+  const handlePress = i => {
+    setList(i);
   };
 
   return (

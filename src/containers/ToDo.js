@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 import ToDoButton from '../components/ToDoButtons';
 
 const ToDo = ({text, index, done, handleDone, handleDelete}) => {
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
   todoText: {
     fontSize: 16,
-    width: 200,
+    width: '65%',
   },
   buttons: {
     flex: 1,

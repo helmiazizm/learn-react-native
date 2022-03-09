@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import ToDo from './ToDo';
 
@@ -19,7 +19,7 @@ const ToDoList = ({
     if (done[text]) {
       setAllFinished(allFinished.filter(value => value !== text));
     } else {
-      setAllFinished(allFinished => [...allFinished, text]);
+      setAllFinished([...allFinished, text]);
     }
   };
 
