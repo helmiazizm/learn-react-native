@@ -38,12 +38,6 @@ const ToDoList = () => {
     />
   );
 
-  const filterItem = (act, bool) => {
-    if (activity.allFinished.includes(act) === bool) {
-      return act;
-    }
-  };
-
   let viewPage;
 
   switch (screen.list) {
@@ -59,18 +53,22 @@ const ToDoList = () => {
     case 1:
       viewPage = (
         <FlatList
-          data={activity.allActivity.map(act => filterItem(act, true))}
+          data={activity.allActivity.filter(
+            act => activity.allFinished.includes(act) === true,
+          )}
           renderItem={renderItem}
-          keyExtractor={(item, index) => `todo0${index}`}
+          keyExtractor={(item, index) => `todo1${index}`}
         />
       );
       break;
     case 2:
       viewPage = (
         <FlatList
-          data={activity.allActivity.map(act => filterItem(act, false))}
+          data={activity.allActivity.filter(
+            act => activity.allFinished.includes(act) === false,
+          )}
           renderItem={renderItem}
-          keyExtractor={(item, index) => `todo0${index}`}
+          keyExtractor={(item, index) => `todo2${index}`}
         />
       );
       break;
