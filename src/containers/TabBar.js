@@ -10,7 +10,7 @@ const TabBar = ({list, setList}) => {
       {items.map((item, index) => {
         return (
           <TabBarItem
-          list={list}
+            list={list}
             key={`tabbaritem${index}`}
             text={item}
             index={index}
