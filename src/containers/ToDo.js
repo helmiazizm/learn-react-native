@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
   todoText: {
     fontSize: 16,
     width: '65%',
+    color: 'black',
   },
   buttons: {
     flex: 1,

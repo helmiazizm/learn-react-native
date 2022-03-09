@@ -13,7 +13,7 @@ const TabBarItem = ({list, text, index, setList}) => {
       <Text
         style={[
           styles.itemText,
-          {fontFamily: list === index ? 'Roboto-Bold' : 'Roboto-Light'},
+          {fontFamily: list === index ? 'Roboto-Black' : 'Roboto'},
         ]}>
         {text}
       </Text>

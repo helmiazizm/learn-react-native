@@ -4,10 +4,11 @@ import Form from '../containers/Form';
 import Header from '../components/Header';
 import ToDoList from '../containers/ToDoList';
 import TabBar from '../containers/TabBar';
+import LinearGradient from 'react-native-linear-gradient';
 
 const HomeScreen = () => {
   return (
-    <View style={styles.sectionContainer}>
+    <LinearGradient colors={['pink', 'purple']} style={styles.sectionContainer}>
       <View style={styles.container}>
         <Header />
         <Form />
@@ -16,14 +17,13 @@ const HomeScreen = () => {
         </ScrollView>
       </View>
       <TabBar />
-    </View>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   sectionContainer: {
     flex: 1,
-    backgroundColor: '#c0c0c0',
   },
   container: {
     flex: 1,
