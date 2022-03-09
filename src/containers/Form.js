@@ -18,8 +18,10 @@ const Form = () => {
   };
 
   const handleAddActivity = () => {
-    setActivityAdd(inputActivity.activity);
-    handleCancel();
+    if (inputActivity.activity.match(/^(?!\s*$).+/)) {
+      setActivityAdd(inputActivity.activity);
+      handleCancel();
+    }
   };
 
   const handleCancel = () => {
