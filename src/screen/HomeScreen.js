@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
 import Form from '../containers/Form';
 import Header from '../components/Header';
 import ToDoList from '../containers/ToDoList';
@@ -12,9 +12,9 @@ const HomeScreen = () => {
       <View style={styles.container}>
         <Header />
         <Form />
-        <ScrollView>
+        <SafeAreaView style={styles.sectionContainer}>
           <ToDoList />
-        </ScrollView>
+        </SafeAreaView>
       </View>
       <TabBar />
     </LinearGradient>

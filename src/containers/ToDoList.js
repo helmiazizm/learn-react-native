@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, FlatList} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {ActionType} from '../store/globalActionType';
 import ToDo from './ToDo';
@@ -28,54 +28,51 @@ const ToDoList = () => {
     setActivityDelete(text);
   };
 
+  const renderItem = ({item, index}) => (
+    <ToDo
+      text={item}
+      index={index}
+      done={done}
+      handleDone={handleDone}
+      handleDelete={handleDelete}
+    />
+  );
+
+  const filterItem = (act, bool) => {
+    if (activity.allFinished.includes(act) === bool) {
+      return act;
+    }
+  };
+
   let viewPage;
 
   switch (screen.list) {
     case 0:
-      viewPage = activity.allActivity.map((act, index) => {
-        return (
-          <ToDo
-            key={`todo0${index}`}
-            text={act}
-            index={index}
-            done={done}
-            handleDone={handleDone}
-            handleDelete={handleDelete}
-          />
-        );
-      });
+      viewPage = (
+        <FlatList
+          data={activity.allActivity}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => `todo0${index}`}
+        />
+      );
       break;
     case 1:
-      viewPage = activity.allActivity.map((act, index) => {
-        if (activity.allFinished.includes(act) === true) {
-          return (
-            <ToDo
-              key={`todo1${index}`}
-              text={act}
-              index={index}
-              done={done}
-              handleDone={handleDone}
-              handleDelete={handleDelete}
-            />
-          );
-        }
-      });
+      viewPage = (
+        <FlatList
+          data={activity.allActivity.map(act => filterItem(act, true))}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => `todo0${index}`}
+        />
+      );
       break;
     case 2:
-      viewPage = activity.allActivity.map((act, index) => {
-        if (activity.allFinished.includes(act) === false) {
-          return (
-            <ToDo
-              key={`todo2${index}`}
-              text={act}
-              index={index}
-              done={done}
-              handleDone={handleDone}
-              handleDelete={handleDelete}
-            />
-          );
-        }
-      });
+      viewPage = (
+        <FlatList
+          data={activity.allActivity.map(act => filterItem(act, false))}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => `todo0${index}`}
+        />
+      );
       break;
     default:
       break;
