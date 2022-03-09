@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import Storage from '../store/Storage';
 import ToDo from './ToDo';
@@ -24,6 +24,10 @@ const ToDoList = ({list}) => {
     setAllFinished(allFinished.filter(value => value !== text));
   };
 
+  // useEffect(()=>{
+  //   Storage();
+  // })
+
   let viewPage;
 
   switch (list) {
@@ -31,6 +35,7 @@ const ToDoList = ({list}) => {
       viewPage = allActivity.map((act, index) => {
         return (
           <ToDo
+            key={`todo0${index}`}
             text={act}
             index={index}
             done={done}
@@ -45,6 +50,7 @@ const ToDoList = ({list}) => {
         if (allFinished.includes(act) === true) {
           return (
             <ToDo
+              key={`todo1${index}`}
               text={act}
               index={index}
               done={done}
@@ -60,6 +66,7 @@ const ToDoList = ({list}) => {
         if (allFinished.includes(act) === false) {
           return (
             <ToDo
+              key={`todo2${index}`}
               text={act}
               index={index}
               done={done}

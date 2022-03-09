@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import {StyleSheet, TextInput} from 'react-native';
 
-const Input = ({handleInputActivity}) => {
+const Input = ({inputActivity, handleInputActivity}) => {
   return (
     <>
       <TextInput
         style={styles.input}
         placeholder="What needs to be done?"
+        value={inputActivity.activity}
         onChange={event => handleInputActivity(event.nativeEvent.text)}
       />
     </>

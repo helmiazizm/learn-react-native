@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, TouchableOpacity, View, StyleSheet} from 'react-native';
 
-const SubmitButton = ({handleAddActivity}) => (
+const SubmitButton = ({handleAddActivity, handleCancel}) => (
   <View style={styles.buttonContainer}>
     <View style={styles.buttonFlex}>
       <TouchableOpacity
@@ -10,7 +10,10 @@ const SubmitButton = ({handleAddActivity}) => (
         onPress={() => handleAddActivity()}>
         <Text style={styles.submit}>Add</Text>
       </TouchableOpacity>
-      <TouchableOpacity underlayColor="#efefef" style={styles.buttonCancel}>
+      <TouchableOpacity
+        underlayColor="#efefef"
+        style={styles.buttonCancel}
+        onPress={() => handleCancel()}>
         <Text style={styles.cancel}>Cancel</Text>
       </TouchableOpacity>
     </View>

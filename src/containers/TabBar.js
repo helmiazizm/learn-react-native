@@ -8,7 +8,14 @@ const TabBar = ({setList}) => {
   return (
     <View style={styles.container}>
       {items.map((item, index) => {
-        return <TabBarItem text={item} index={index} setList={setList} />;
+        return (
+          <TabBarItem
+            key={`tabbaritem${index}`}
+            text={item}
+            index={index}
+            setList={setList}
+          />
+        );
       })}
     </View>
   );
