@@ -1,5 +1,14 @@
-import React from 'react';
-import {FlatList, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  Modal,
+  Alert,
+  TouchableOpacity,
+} from 'react-native';
 
 const MATERIAL_SUBJECT = [
   {
@@ -52,17 +61,70 @@ const MATERIAL_SUBJECT = [
   },
 ];
 
-const MaterialItem = ({title}) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-  </View>
+const MaterialInfoModal = ({info, isVisible, setVisible}) => (
+  <Modal
+    animationType="fade"
+    transparent={true}
+    visible={isVisible}
+    onRequestClose={() => {
+      setVisible(!isVisible);
+    }}>
+    <View style={styles.centeredView}>
+      <View style={styles.modalView}>
+        <Text style={styles.itemTitleText}>{info.title}</Text>
+        <Text style={styles.itemDescriptionText}>{info.description}</Text>
+        <Text style={styles.itemDescriptionText}>
+          <Text style={{fontWeight: 'bold'}}>Duration: </Text>
+          {info.duration}
+        </Text>
+        <View style={{height: 15}}>
+          <TouchableOpacity
+            style={{alignSelf: 'center'}}
+            onPress={() => {
+              setVisible(!isVisible);
+            }}>
+            <Text>Close</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
+  </Modal>
 );
 
+const MaterialItem = ({info, onSetModalInfo, onSetModalVisible, title}) => {
+  const onShowModal = () => {
+    onSetModalInfo(info);
+    onSetModalVisible(true);
+  };
+
+  return (
+    <View>
+      <TouchableOpacity onPress={onShowModal} style={{padding: 5}}>
+        <Text style={styles.itemTitleText}>{info.title}</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
 const MaterialScreen = () => {
-  const renderItem = ({item}) => <MaterialItem title={item.title} />;
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalInfo, setModalInfo] = useState({});
+
+  const renderItem = ({item}) => (
+    <MaterialItem
+      info={item}
+      onSetModalInfo={setModalInfo}
+      onSetModalVisible={setModalVisible}
+    />
+  );
 
   return (
     <SafeAreaView style={styles.container}>
+      <MaterialInfoModal
+        info={modalInfo}
+        setVisible={setModalVisible}
+        isVisible={modalVisible}
+      />
       <FlatList
         data={MATERIAL_SUBJECT}
         renderItem={renderItem}
@@ -75,15 +137,40 @@ const MaterialScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#D77FA1',
+    padding: 5,
   },
   item: {
-    backgroundColor: '#9AD0EC',
+    backgroundColor: '#FCBF49',
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
+    borderRadius: 5,
   },
-  title: {
-    fontSize: 32,
+  itemTitleText: {
+    fontFamily: 'Roboto-Bold',
+    fontSize: 18,
+  },
+  itemDescriptionText: {
+    fontFamily: 'Roboto-Regular',
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalView: {
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
 });
 
