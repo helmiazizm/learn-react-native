@@ -25,7 +25,7 @@ const HomeScreen = () => {
           />
         </ScrollView>
       </View>
-      <TabBar setList={setList} />
+      <TabBar list={list} setList={setList} />
     </View>
   );
 };

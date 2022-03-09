@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
   todoText: {
     fontSize: 16,
-    width: 200
+    width: 200,
   },
   buttons: {
     flex: 1,

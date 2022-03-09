@@ -1,14 +1,18 @@
 import React from 'react';
 import {Text, TouchableOpacity, StyleSheet} from 'react-native';
 
-const TabBarItem = ({text, index, setList}) => {
+const TabBarItem = ({list, text, index, setList}) => {
   const handlePress = index => {
     setList(index);
   };
 
   return (
     <TouchableOpacity
-      style={[styles.item, styles.border]}
+      style={[
+        styles.item,
+        styles.border,
+        {fontWeight: list === index ? 'bold' : null},
+      ]}
       onPress={() => handlePress(index)}>
       <Text style={[styles.itemText]}>{text}</Text>
     </TouchableOpacity>

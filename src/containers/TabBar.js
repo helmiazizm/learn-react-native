@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import TabBarItem from '../components/TabBarItem';
 
-const TabBar = ({setList}) => {
+const TabBar = ({list, setList}) => {
   let items = ['All', 'Finished', 'Unfinished'];
 
   return (
@@ -10,6 +10,7 @@ const TabBar = ({setList}) => {
       {items.map((item, index) => {
         return (
           <TabBarItem
+          list={list}
             key={`tabbaritem${index}`}
             text={item}
             index={index}
