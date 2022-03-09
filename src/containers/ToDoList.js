@@ -1,13 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import Storage from '../store/Storage';
 import ToDo from './ToDo';
 
-const ToDoList = ({list}) => {
-  const {allActivity, allFinished, setAllActivity, setAllFinished} = Storage();
+const ToDoList = ({
+  list,
+  allActivity,
+  allFinished,
+  setAllActivity,
+  setAllFinished,
+}) => {
   const [done, setDone] = useState({});
 
-  const handleDone = (index, text) => {
+  const handleDone = text => {
     setDone({
       ...done,
       [text]: !done[text],
@@ -23,10 +27,6 @@ const ToDoList = ({list}) => {
     setAllActivity(allActivity.filter(value => value !== text));
     setAllFinished(allFinished.filter(value => value !== text));
   };
-
-  // useEffect(()=>{
-  //   Storage();
-  // })
 
   let viewPage;
 
