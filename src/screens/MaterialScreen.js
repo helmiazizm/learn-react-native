@@ -98,7 +98,7 @@ const MaterialItem = ({info, onSetModalInfo, onSetModalVisible, title}) => {
   };
 
   return (
-    <View>
+    <View style={styles.item}>
       <TouchableOpacity onPress={onShowModal} style={{padding: 5}}>
         <Text style={styles.itemTitleText}>{info.title}</Text>
       </TouchableOpacity>
