@@ -1,7 +1,7 @@
 export default {
   SCREEN: {
-    LOGIN: '0',
-    WELCOME: '1',
-    MATERIAL: '-1',
+    LOGIN: 'LOGIN',
+    WELCOME: 'WELCOME',
+    MATERIAL: 'MATERIAL',
   },
 };

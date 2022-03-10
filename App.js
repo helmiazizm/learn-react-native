@@ -13,19 +13,28 @@ import LoginScreen from './src/screens/LoginScreen';
 import MaterialScreen from './src/screens/MaterialScreen';
 import WelcomeScreen from './src/screens/WelcomeScreen';
 import GLOBAL from './src/global';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
 
 const App = () => {
-  const [screenState, setScreenState] = useState(GLOBAL.SCREEN.WELCOME);
-
-  switch (screenState) {
-    case GLOBAL.SCREEN.LOGIN:
-      return <LoginScreen onNavigate={setScreenState} />;
-    case GLOBAL.SCREEN.WELCOME:
-      return <WelcomeScreen onNavigate={setScreenState} />;
-    case GLOBAL.SCREEN.MATERIAL:
-      return <MaterialScreen onNavigate={setScreenState} />;
-    default:
-      break;
-  }
+  // const [screenState, setScreenState] = useState(GLOBAL.SCREEN.WELCOME);
+  const Stack = createNativeStackNavigator();
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName={GLOBAL.SCREEN.WELCOME}>
+        <Stack.Group screenOptions={{headerShown: false}}>
+          <Stack.Screen
+            name={GLOBAL.SCREEN.WELCOME}
+            component={WelcomeScreen}
+          />
+          <Stack.Screen name={GLOBAL.SCREEN.LOGIN} component={LoginScreen} />
+          <Stack.Screen
+            name={GLOBAL.SCREEN.MATERIAL}
+            component={MaterialScreen}
+          />
+        </Stack.Group>
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 };
 export default App;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -9,24 +9,46 @@ import {
 } from 'react-native';
 import GLOBAL from '../global';
 
-const LoginScreen = props => {
+const LoginScreen = ({navigation}) => {
+  const [form, setForm] = useState({
+    username: '',
+    password: '',
+  });
+
+  const changeUsername = e => {
+    setForm({
+      ...form,
+      username: e.nativeEvent.text,
+    });
+  };
+
+  const changePassword = e => {
+    setForm({
+      ...form,
+      password: e.nativeEvent.text,
+    });
+  };
+
+  const handleSubmit = () => {
+    if (form.username === 'admin' && form.password === 'password') {
+      onNavigateMaterial(navigation);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.form}>
         <Text style={styles.title}>Username</Text>
-        <TextInput style={styles.input} />
+        <TextInput style={styles.input} onChange={changeUsername} />
         <Text style={styles.title}>Password</Text>
-        <TextInput style={styles.input} />
+        <TextInput
+          style={styles.input}
+          onChange={changePassword}
+          secureTextEntry={true}
+        />
         <View style={styles.buttonPosition}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => onNavigateMaterial(props.onNavigate)}>
+          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
             <Text style={{fontSize: 16, fontWeight: 'bold'}}>Login</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => onNavigateCancel(props.onNavigate)}>
-            <Text style={{fontSize: 16, fontWeight: 'bold'}}>Cancel</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -34,8 +56,8 @@ const LoginScreen = props => {
   );
 };
 
-const onNavigateMaterial = onNavigate => onNavigate(GLOBAL.SCREEN.MATERIAL);
-const onNavigateCancel = onNavigate => onNavigate(GLOBAL.SCREEN.WELCOME);
+const onNavigateMaterial = onNavigate =>
+  onNavigate.replace(GLOBAL.SCREEN.MATERIAL);
 
 const styles = StyleSheet.create({
   container: {

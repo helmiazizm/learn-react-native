@@ -107,7 +107,7 @@ const MaterialItem = ({info, onSetModalInfo, onSetModalVisible, title}) => {
   );
 };
 
-const MaterialScreen = props => {
+const MaterialScreen = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
 
@@ -125,7 +125,7 @@ const MaterialScreen = props => {
         <Text style={styles.headerText}>Material</Text>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => onNavigateLogout(props.onNavigate)}>
+          onPress={() => onNavigateLogout(navigation)}>
           <Text style={{fontSize: 16, fontWeight: 'bold'}}>Logout</Text>
         </TouchableOpacity>
       </View>
@@ -143,7 +143,8 @@ const MaterialScreen = props => {
   );
 };
 
-const onNavigateLogout = onNavigate => onNavigate(GLOBAL.SCREEN.WELCOME);
+const onNavigateLogout = onNavigate =>
+  onNavigate.replace(GLOBAL.SCREEN.WELCOME);
 
 const styles = StyleSheet.create({
   container: {
