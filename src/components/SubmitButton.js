@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     paddingVertical: 10,
     paddingHorizontal: 15,
-    backgroundColor: 'grey',
+    backgroundColor: 'purple',
     width: '22%',
     borderWidth: 1,
     borderColor: 'rgba(0,0,0,.1)',
