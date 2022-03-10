@@ -1,5 +1,12 @@
 import React from 'react';
-import {Image, SafeAreaView, StyleSheet, Text} from 'react-native';
+import {
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+} from 'react-native';
 
 const WelcomeScreen = () => {
   return (
@@ -9,6 +16,11 @@ const WelcomeScreen = () => {
         source={require('../assets/Images/undraw_People_re_8spw.png')}
         style={{height: 256, width: 256}}
       />
+      <View style={styles.buttonView}>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
@@ -22,6 +34,22 @@ const styles = StyleSheet.create({
   texts: {
     fontSize: 36,
     fontFamily: 'RobotoCondensed-Bold',
+  },
+  buttonView: {
+    alignSelf: 'stretch',
+  },
+  button: {
+    backgroundColor: '#D77FA1',
+    alignItems: 'center',
+    borderRadius: 10,
+    margin: 20,
+    padding: 12,
+  },
+  buttonText: {
+    color: '#D6E5FA',
+    fontWeight: 'bold',
+    fontFamily: 'RobotoCondensed-Regular',
+    fontSize: 16,
   },
 });
 // /home/user/FirstProject/src/assets/Images/undraw_People_re_8spw.png

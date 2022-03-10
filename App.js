@@ -17,8 +17,8 @@ const App = () => {
   return (
     // return <HomeScreen styles={Style} />;
     // return <LoginScreen />;
-    // return <WelcomeScreen />;
-    <MaterialScreen />
+    <WelcomeScreen />
+    // <MaterialScreen />
     // return <Flex />;
   );
 };
