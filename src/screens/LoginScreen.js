@@ -7,8 +7,9 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import GLOBAL from '../global';
 
-const LoginScreen = () => {
+const LoginScreen = props => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.form}>
@@ -17,14 +18,24 @@ const LoginScreen = () => {
         <Text style={styles.title}>Password</Text>
         <TextInput style={styles.input} />
         <View style={styles.buttonPosition}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => onNavigateMaterial(props.onNavigate)}>
             <Text style={{fontSize: 16, fontWeight: 'bold'}}>Login</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => onNavigateCancel(props.onNavigate)}>
+            <Text style={{fontSize: 16, fontWeight: 'bold'}}>Cancel</Text>
           </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
   );
 };
+
+const onNavigateMaterial = onNavigate => onNavigate(GLOBAL.SCREEN.MATERIAL);
+const onNavigateCancel = onNavigate => onNavigate(GLOBAL.SCREEN.WELCOME);
 
 const styles = StyleSheet.create({
   container: {

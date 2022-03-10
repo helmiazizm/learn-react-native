@@ -9,6 +9,7 @@ import {
   Alert,
   TouchableOpacity,
 } from 'react-native';
+import GLOBAL from '../global';
 
 const MATERIAL_SUBJECT = [
   {
@@ -106,7 +107,7 @@ const MaterialItem = ({info, onSetModalInfo, onSetModalVisible, title}) => {
   );
 };
 
-const MaterialScreen = () => {
+const MaterialScreen = props => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
 
@@ -120,6 +121,14 @@ const MaterialScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.headerPosition}>
+        <Text style={styles.headerText}>Material</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => onNavigateLogout(props.onNavigate)}>
+          <Text style={{fontSize: 16, fontWeight: 'bold'}}>Logout</Text>
+        </TouchableOpacity>
+      </View>
       <MaterialInfoModal
         info={modalInfo}
         setVisible={setModalVisible}
@@ -134,11 +143,31 @@ const MaterialScreen = () => {
   );
 };
 
+const onNavigateLogout = onNavigate => onNavigate(GLOBAL.SCREEN.WELCOME);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#D77FA1',
     padding: 5,
+  },
+  headerPosition: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  headerText: {
+    alignSelf: 'center',
+    fontSize: 25,
+    fontFamily: 'RobotoCondensed-Bold',
+    fontWeight: '900',
+    color: 'white',
+  },
+  button: {
+    backgroundColor: '#ECA6A6',
+    alignItems: 'center',
+    width: 100,
+    margin: 12,
+    padding: 12,
   },
   item: {
     backgroundColor: '#FCBF49',
