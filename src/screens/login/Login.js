@@ -2,8 +2,11 @@ import axios from 'axios';
 import {useState} from 'react';
 import {API_URL} from '@env';
 import {MATERIAL_PATH} from '../../navigation/NavigationPath';
+import LoginService from '../../services/LoginService';
+import {goToScreen} from '../../navigation/NavigationHelper';
 
-export const Login = () => {
+export const Login = service => {
+  const {callLoginService} = service();
   const [form, setForm] = useState({
     username: '',
     password: '',
@@ -23,15 +26,12 @@ export const Login = () => {
     });
   };
 
-  const handleSubmit = async onNavigate => {
+  const handleSubmit = async () => {
     console.log(form);
     try {
-      const response = await axios.post(`${API_URL}/login`, {
-        username: form.username,
-        password: form.password,
-      });
-      console.log(response);
-      onNavigate.replace(MATERIAL_PATH);
+      const response = await callLoginService(form.username, form.password);
+      console.log('response', response);
+      goToScreen(MATERIAL_PATH, true);
     } catch (error) {
       console.log(error);
     }

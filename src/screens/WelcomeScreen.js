@@ -7,20 +7,21 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
+import {goToScreen} from '../navigation/NavigationHelper';
 import {LOGIN_PATH} from '../navigation/NavigationPath';
 
-const WelcomeScreen = ({navigation}) => {
+const WelcomeScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.texts}>Hello</Text>
       <Image
         source={require('../assets/Images/undraw_People_re_8spw.png')}
-        style={{height: 256, width: 256}}
+        style={{height: 256, width: 288}}
       />
       <View style={styles.buttonView}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => onNavigateLogin(navigation)}>
+          onPress={() => goToScreen(LOGIN_PATH, false)}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
       </View>
@@ -28,7 +29,7 @@ const WelcomeScreen = ({navigation}) => {
   );
 };
 
-const onNavigateLogin = onNavigate => onNavigate.navigate(LOGIN_PATH);
+// const onNavigateLogin = onNavigate => onNavigate.navigate(LOGIN_PATH);
 
 const styles = StyleSheet.create({
   container: {

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   SafeAreaView,
@@ -6,10 +6,10 @@ import {
   Text,
   View,
   Modal,
-  Alert,
   TouchableOpacity,
 } from 'react-native';
-import {WELCOME_PATH} from '../navigation/NavigationPath';
+import {goToScreen} from '../../navigation/NavigationHelper';
+import {WELCOME_PATH} from '../../navigation/NavigationPath';
 
 const MATERIAL_SUBJECT = [
   {
@@ -107,7 +107,8 @@ const MaterialItem = ({info, onSetModalInfo, onSetModalVisible, title}) => {
   );
 };
 
-const MaterialScreen = ({navigation}) => {
+const MaterialScreen = ({material}) => {
+  const {data, getMaterial} = material();
   const [modalVisible, setModalVisible] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
 
@@ -119,13 +120,18 @@ const MaterialScreen = ({navigation}) => {
     />
   );
 
+  useEffect(() => {
+    getMaterial();
+  }, []);
+  // console.log('material data', data);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerPosition}>
         <Text style={styles.headerText}>Material</Text>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => onNavigateLogout(navigation)}>
+          onPress={() => goToScreen(WELCOME_PATH, true)}>
           <Text style={{fontSize: 16, fontWeight: 'bold'}}>Logout</Text>
         </TouchableOpacity>
       </View>
@@ -135,7 +141,7 @@ const MaterialScreen = ({navigation}) => {
         isVisible={modalVisible}
       />
       <FlatList
-        data={MATERIAL_SUBJECT}
+        data={data}
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />

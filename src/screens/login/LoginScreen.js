@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 import {Login} from './Login';
 
-const LoginScreen = ({navigation}) => {
-  const {changeUsername, changePassword, handleSubmit} = Login();
+const LoginScreen = ({login}) => {
+  const {changeUsername, changePassword, handleSubmit} = login();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -26,7 +26,7 @@ const LoginScreen = ({navigation}) => {
         <View style={styles.buttonPosition}>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => handleSubmit(navigation)}>
+            onPress={() => handleSubmit()}>
             <Text style={{fontSize: 16, fontWeight: 'bold'}}>Login</Text>
           </TouchableOpacity>
         </View>
