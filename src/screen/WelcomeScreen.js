@@ -7,15 +7,15 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import GLOBAL from '../global';
+import {ActionType} from '../store/globalActionType';
 
 const WelcomeScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.texts}>Hello</Text>
       <Image
-        source={require('../assets/Images/undraw_People_re_8spw.png')}
-        style={{height: 256, width: 256}}
+        source={require('../assets/images/undraw_People_re_8spw.png')}
+        style={{height: 256, width: 324}}
       />
       <View style={styles.buttonView}>
         <TouchableOpacity
@@ -28,7 +28,8 @@ const WelcomeScreen = ({navigation}) => {
   );
 };
 
-const onNavigateLogin = onNavigate => onNavigate.navigate(GLOBAL.SCREEN.LOGIN);
+const onNavigateLogin = onNavigate =>
+  onNavigate.navigate(ActionType.SCREEN.LOGIN);
 
 const styles = StyleSheet.create({
   container: {

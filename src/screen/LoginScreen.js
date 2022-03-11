@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, {useState} from 'react';
 import {
   SafeAreaView,
@@ -7,7 +8,8 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import GLOBAL from '../global';
+import {ActionType} from '../store/globalActionType';
+import {API_URL} from '@env';
 
 const LoginScreen = ({navigation}) => {
   const [form, setForm] = useState({
@@ -29,9 +31,15 @@ const LoginScreen = ({navigation}) => {
     });
   };
 
-  const handleSubmit = () => {
-    if (form.username === 'admin' && form.password === 'password') {
+  const handleSubmit = async () => {
+    try {
+      await axios.post(`${API_URL}/login`, {
+        userName: form.username,
+        password: form.password,
+      });
       onNavigateMaterial(navigation);
+    } catch (error) {
+      throw error;
     }
   };
 
@@ -57,7 +65,7 @@ const LoginScreen = ({navigation}) => {
 };
 
 const onNavigateMaterial = onNavigate =>
-  onNavigate.replace(GLOBAL.SCREEN.MATERIAL);
+  onNavigate.replace(ActionType.SCREEN.TODO);
 
 const styles = StyleSheet.create({
   container: {

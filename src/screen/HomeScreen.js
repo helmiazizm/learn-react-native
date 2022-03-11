@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
+import {SafeAreaView, StyleSheet, View} from 'react-native';
 import Form from '../containers/Form';
 import Header from '../components/Header';
 import ToDoList from '../containers/ToDoList';
