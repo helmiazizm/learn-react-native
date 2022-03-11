@@ -1,5 +1,4 @@
-import axios from 'axios';
-import React, {useState} from 'react';
+import React from 'react';
 import {
   SafeAreaView,
   View,
@@ -8,40 +7,10 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import GLOBAL from '../global';
-import {API_URL} from '@env';
+import {Login} from './Login';
 
 const LoginScreen = ({navigation}) => {
-  const [form, setForm] = useState({
-    username: '',
-    password: '',
-  });
-
-  const changeUsername = e => {
-    setForm({
-      ...form,
-      username: e.nativeEvent.text,
-    });
-  };
-
-  const changePassword = e => {
-    setForm({
-      ...form,
-      password: e.nativeEvent.text,
-    });
-  };
-
-  const handleSubmit = async () => {
-    try {
-      const response = await axios.post(`${API_URL}/login`, {
-        userName: form.username,
-        password: form.password,
-      });
-      onNavigateMaterial(navigation);
-    } catch (error) {
-      throw error
-    }
-  };
+  const {changeUsername, changePassword, handleSubmit} = Login();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -55,7 +24,9 @@ const LoginScreen = ({navigation}) => {
           secureTextEntry={true}
         />
         <View style={styles.buttonPosition}>
-          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => handleSubmit(navigation)}>
             <Text style={{fontSize: 16, fontWeight: 'bold'}}>Login</Text>
           </TouchableOpacity>
         </View>
@@ -63,9 +34,6 @@ const LoginScreen = ({navigation}) => {
     </SafeAreaView>
   );
 };
-
-const onNavigateMaterial = onNavigate =>
-  onNavigate.replace(GLOBAL.SCREEN.MATERIAL);
 
 const styles = StyleSheet.create({
   container: {

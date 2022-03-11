@@ -7,7 +7,7 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import GLOBAL from '../global';
+import {LOGIN_PATH} from '../navigation/NavigationPath';
 
 const WelcomeScreen = ({navigation}) => {
   return (
@@ -28,7 +28,7 @@ const WelcomeScreen = ({navigation}) => {
   );
 };
 
-const onNavigateLogin = onNavigate => onNavigate.navigate(GLOBAL.SCREEN.LOGIN);
+const onNavigateLogin = onNavigate => onNavigate.navigate(LOGIN_PATH);
 
 const styles = StyleSheet.create({
   container: {

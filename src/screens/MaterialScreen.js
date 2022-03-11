@@ -9,7 +9,7 @@ import {
   Alert,
   TouchableOpacity,
 } from 'react-native';
-import GLOBAL from '../global';
+import {WELCOME_PATH} from '../navigation/NavigationPath';
 
 const MATERIAL_SUBJECT = [
   {
@@ -143,8 +143,7 @@ const MaterialScreen = ({navigation}) => {
   );
 };
 
-const onNavigateLogout = onNavigate =>
-  onNavigate.replace(GLOBAL.SCREEN.WELCOME);
+const onNavigateLogout = onNavigate => onNavigate.replace(WELCOME_PATH);
 
 const styles = StyleSheet.create({
   container: {
