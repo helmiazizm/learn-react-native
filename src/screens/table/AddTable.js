@@ -11,38 +11,33 @@ import {
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 
-const AddMenu = ({addMenu, isVisible, setVisible}) => {
-  const addMenuSchema = Yup.object({
+const AddTable = ({addTable, isVisible, setVisible}) => {
+  const addTableSchema = Yup.object({
     id: Yup.string().required('ID required'),
-    name: Yup.string().required('Name required'),
-    price: Yup.string()
-      .required('Price required')
-      .matches(/^\d+$/, 'Field should not have characters'),
+    nomor: Yup.string().required('Number required'),
+    status: Yup.string()
+      .required('Status required')
+      .matches(
+        'Available' || 'Unavailable',
+        'Fill with either Available or Unavailable',
+      ),
   });
 
   const formik = useFormik({
     initialValues: {
       id: '',
-      name: '',
-      price: '',
+      nomor: '',
+      status: '',
     },
-    validationSchema: addMenuSchema,
+    validationSchema: addTableSchema,
     onSubmit: async values => {
-      await addMenu(values);
+      await addTable(values);
       setVisible(!isVisible);
     },
   });
 
-  const {
-    setFieldValue,
-    handleBlur,
-    errors,
-    touched,
-    getFieldProps,
-    handleChange,
-    handleSubmit,
-    values,
-  } = formik;
+  const {setFieldValue, handleBlur, errors, touched, handleSubmit, values} =
+    formik;
 
   return (
     <Modal
@@ -64,27 +59,26 @@ const AddMenu = ({addMenu, isVisible, setVisible}) => {
             style={styles.textInput}
             onChangeText={e => setFieldValue('id', e)}
             onBlur={handleBlur('id')}
-            // value={values.idaa}
           />
           <View style={styles.labelPlacement}>
-            <Text style={styles.textLabel}>Name</Text>
+            <Text style={styles.textLabel}>Nomor</Text>
             <Text style={styles.warning}>
-              {errors.name && touched.name ? errors.name : null}
+              {errors.nomor && touched.nomor ? errors.nomor : null}
             </Text>
           </View>
           <TextInput
             style={styles.textInput}
-            onChangeText={e => setFieldValue('name', e)}
+            onChangeText={e => setFieldValue('nomor', e)}
           />
           <View style={styles.labelPlacement}>
-            <Text style={styles.textLabel}>Price</Text>
+            <Text style={styles.textLabel}>Status</Text>
             <Text style={styles.warning}>
-              {errors.price && touched.price ? errors.price : null}
+              {errors.status && touched.status ? errors.status : null}
             </Text>
           </View>
           <TextInput
             style={styles.textInput}
-            onChangeText={e => setFieldValue('price', e)}
+            onChangeText={e => setFieldValue('status', e)}
           />
           <View style={styles.buttonPlacement}>
             <Button
@@ -112,7 +106,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // resizeMode: 'contain',
+    resizeMode: 'contain',
   },
   modalView: {
     backgroundColor: 'white',
@@ -160,4 +154,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddMenu;
+export default AddTable;

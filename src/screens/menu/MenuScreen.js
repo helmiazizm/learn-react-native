@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import FooterBar from '../../components/FooterBar';
 import Icon from 'react-native-vector-icons/AntDesign';
+import AddMenu from './AddMenu';
 
 const MenuInfoModal = ({info, isVisible, setVisible}) => (
   <Modal
@@ -56,8 +57,9 @@ const MenuItem = ({info, onSetModalInfo, onSetModalVisible, title}) => {
 };
 
 const MenuScreen = ({menu}) => {
-  const {data, getMenu} = menu();
+  const {data, addMenu, getMenu} = menu();
   const [modalVisible, setModalVisible] = useState(false);
+  const [addMenuVisible, setAddMenuVisible] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
 
   const renderItem = ({item}) => (
@@ -81,7 +83,9 @@ const MenuScreen = ({menu}) => {
           {/* <Icon name="upcircleo" size={20} /> */}
         </Text>
       </View>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => setAddMenuVisible(!addMenuVisible)}>
         <Text
           style={{
             color: 'white',
@@ -95,6 +99,11 @@ const MenuScreen = ({menu}) => {
         info={modalInfo}
         setVisible={setModalVisible}
         isVisible={modalVisible}
+      />
+      <AddMenu
+        addMenu={addMenu}
+        isVisible={addMenuVisible}
+        setVisible={setAddMenuVisible}
       />
       <FlatList
         data={data}
@@ -129,7 +138,7 @@ const styles = StyleSheet.create({
     width: 100,
     margin: 16,
     padding: 12,
-    alignSelf:'center',
+    alignSelf: 'center',
     // marginHorizontal: 16,
     borderRadius: 5,
   },

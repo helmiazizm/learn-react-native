@@ -1,7 +1,7 @@
 import clientService from './ApiClient';
 
 const TableService = () => {
-  const {get} = clientService();
+  const {get, post} = clientService();
 
   const callTableService = async () => {
     try {
@@ -13,8 +13,20 @@ const TableService = () => {
       throw error;
     }
   };
+
+  const postTableService = async form => {
+    try {
+      let data = await post('/tables', form);
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log('error post', error);
+      throw error;
+    }
+  };
   return {
     callTableService,
+    postTableService,
   };
 };
 

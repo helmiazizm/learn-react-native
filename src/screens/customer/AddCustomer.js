@@ -6,29 +6,31 @@ import {
   Text,
   View,
   ScrollView,
+  KeyboardAvoidingView,
   TextInput,
+  SafeAreaView,
 } from 'react-native';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 
-const AddMenu = ({addMenu, isVisible, setVisible}) => {
-  const addMenuSchema = Yup.object({
+const AddCustomer = ({addCustomer, isVisible, setVisible}) => {
+  const addCustomerSchema = Yup.object({
     id: Yup.string().required('ID required'),
-    name: Yup.string().required('Name required'),
-    price: Yup.string()
-      .required('Price required')
-      .matches(/^\d+$/, 'Field should not have characters'),
+    nama: Yup.string().required('Name required'),
+    email: Yup.string().required('Email required').email('Email invalid'),
+    alamat: Yup.string().required('Address required'),
   });
 
   const formik = useFormik({
     initialValues: {
       id: '',
-      name: '',
-      price: '',
+      nama: '',
+      email: '',
+      alamat: '',
     },
-    validationSchema: addMenuSchema,
+    validationSchema: addCustomerSchema,
     onSubmit: async values => {
-      await addMenu(values);
+      await addCustomer(values);
       setVisible(!isVisible);
     },
   });
@@ -49,13 +51,14 @@ const AddMenu = ({addMenu, isVisible, setVisible}) => {
       animationType="fade"
       transparent={true}
       visible={isVisible}
+      // statusBarTranslucent={true}
       onRequestClose={() => {
         setVisible(!isVisible);
       }}>
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <View style={styles.labelPlacement}>
-            <Text style={styles.textLabel}>ID</Text>
+            <Text style={styles.textLabel}>ID </Text>
             <Text style={styles.warning}>
               {errors.id && touched.id ? errors.id : null}
             </Text>
@@ -66,25 +69,36 @@ const AddMenu = ({addMenu, isVisible, setVisible}) => {
             onBlur={handleBlur('id')}
             // value={values.idaa}
           />
+
           <View style={styles.labelPlacement}>
-            <Text style={styles.textLabel}>Name</Text>
+            <Text style={styles.textLabel}>Nama </Text>
             <Text style={styles.warning}>
-              {errors.name && touched.name ? errors.name : null}
+              {errors.nama && touched.nama ? errors.nama : null}
             </Text>
           </View>
           <TextInput
             style={styles.textInput}
-            onChangeText={e => setFieldValue('name', e)}
+            onChangeText={e => setFieldValue('nama', e)}
           />
           <View style={styles.labelPlacement}>
-            <Text style={styles.textLabel}>Price</Text>
+            <Text style={styles.textLabel}>Email </Text>
             <Text style={styles.warning}>
-              {errors.price && touched.price ? errors.price : null}
+              {errors.email && touched.email ? errors.email : null}
             </Text>
           </View>
           <TextInput
             style={styles.textInput}
-            onChangeText={e => setFieldValue('price', e)}
+            onChangeText={e => setFieldValue('email', e)}
+          />
+          <View style={styles.labelPlacement}>
+            <Text style={styles.textLabel}>Alamat</Text>
+            <Text style={styles.warning}>
+              {errors.alamat && touched.alamat ? errors.alamat : null}
+            </Text>
+          </View>
+          <TextInput
+            style={styles.textInput}
+            onChangeText={e => setFieldValue('alamat', e)}
           />
           <View style={styles.buttonPlacement}>
             <Button
@@ -112,7 +126,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // resizeMode: 'contain',
+    resizeMode: 'contain',
   },
   modalView: {
     backgroundColor: 'white',
@@ -160,4 +174,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddMenu;
+export default AddCustomer;

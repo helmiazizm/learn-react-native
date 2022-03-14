@@ -1,7 +1,7 @@
 import {useState} from 'react';
 
 export const Table = service => {
-  const {callTableService} = service();
+  const {callTableService, postTableService} = service();
   const [data, setData] = useState([]);
 
   const getTable = async () => {
@@ -13,8 +13,18 @@ export const Table = service => {
     }
   };
 
+  const addTable = async form => {
+    try {
+      const response = await postTableService(form);
+      console.log('responsemenu', response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     data,
+    addTable,
     getTable,
   };
 };

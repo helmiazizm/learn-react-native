@@ -1,7 +1,7 @@
 import {useState} from 'react';
 
 export const Customer = service => {
-  const {callCustomerService} = service();
+  const {callCustomerService, postCustomerService} = service();
   const [data, setData] = useState([]);
 
   const getCustomer = async () => {
@@ -13,8 +13,17 @@ export const Customer = service => {
     }
   };
 
+  const addCustomer = async form => {
+    try {
+      await postCustomerService(form);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     data,
     getCustomer,
+    addCustomer,
   };
 };

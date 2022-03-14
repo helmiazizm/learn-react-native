@@ -11,6 +11,7 @@ import {
 import FooterBar from '../../components/FooterBar';
 import {goToScreen} from '../../navigation/NavigationHelper';
 import {WELCOME_PATH} from '../../navigation/NavigationPath';
+import AddCustomer from './AddCustomer';
 
 const CustomerInfoModal = ({info, isVisible, setVisible}) => (
   <Modal
@@ -61,8 +62,9 @@ const CustomerItem = ({info, onSetModalInfo, onSetModalVisible, title}) => {
 };
 
 const CustomerScreen = ({customer}) => {
-  const {data, getCustomer} = customer();
+  const {data, addCustomer, getCustomer} = customer();
   const [modalVisible, setModalVisible] = useState(false);
+  const [addCustomerModal, setAddCustomerModal] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
 
   const renderItem = ({item}) => (
@@ -88,7 +90,9 @@ const CustomerScreen = ({customer}) => {
           <Text style={{fontSize: 16, fontWeight: 'bold'}}>Logout</Text>
         </TouchableOpacity> */}
       </View>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => setAddCustomerModal(!addCustomerModal)}>
         <Text
           style={{
             color: 'white',
@@ -102,6 +106,11 @@ const CustomerScreen = ({customer}) => {
         info={modalInfo}
         setVisible={setModalVisible}
         isVisible={modalVisible}
+      />
+      <AddCustomer
+        addCustomer={addCustomer}
+        isVisible={addCustomerModal}
+        setVisible={setAddCustomerModal}
       />
       <FlatList
         data={data}

@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import FooterBar from '../../components/FooterBar';
+import AddTable from './AddTable';
 
 const TableInfoModal = ({info, isVisible, setVisible}) => (
   <Modal
@@ -57,8 +58,9 @@ const TableItem = ({info, onSetModalInfo, onSetModalVisible, title}) => {
 };
 
 const TableScreen = ({table}) => {
-  const {data, getTable} = table();
+  const {data, addTable, getTable} = table();
   const [modalVisible, setModalVisible] = useState(false);
+  const [addTableVisible, setAddTableVisible] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
 
   const renderItem = ({item}) => (
@@ -84,7 +86,9 @@ const TableScreen = ({table}) => {
           <Text style={{fontSize: 16, fontWeight: 'bold'}}>Logout</Text>
         </TouchableOpacity> */}
       </View>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => setAddTableVisible(!addTableVisible)}>
         <Text
           style={{
             color: 'white',
@@ -103,6 +107,11 @@ const TableScreen = ({table}) => {
         data={data}
         renderItem={renderItem}
         keyExtractor={item => item.id}
+      />
+      <AddTable
+        addTable={addTable}
+        isVisible={addTableVisible}
+        setVisible={setAddTableVisible}
       />
       <FooterBar />
     </SafeAreaView>

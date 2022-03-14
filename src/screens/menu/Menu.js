@@ -1,8 +1,20 @@
+import {useFormik} from 'formik';
 import {useState} from 'react';
+import * as Yup from 'yup';
 
 export const Menu = service => {
-  const {callMenuService} = service();
+  const {callMenuService, postMenuService} = service();
   const [data, setData] = useState([]);
+  
+
+  const addMenu = async form => {
+    try {
+      const response = await postMenuService(form);
+      console.log('responsemenu', response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const getMenu = async () => {
     try {
@@ -15,6 +27,7 @@ export const Menu = service => {
 
   return {
     data,
+    addMenu,
     getMenu,
   };
 };
