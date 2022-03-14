@@ -10,13 +10,13 @@ import {
 import {Login} from './Login';
 
 const LoginScreen = ({login}) => {
-  const {changeUsername, changePassword, handleSubmit} = login();
+  const {changeEmail, changePassword, handleSubmit} = login();
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.form}>
-        <Text style={styles.title}>Username</Text>
-        <TextInput style={styles.input} onChange={changeUsername} />
+        <Text style={styles.title}>Email</Text>
+        <TextInput style={styles.input} onChange={changeEmail} />
         <Text style={styles.title}>Password</Text>
         <TextInput
           style={styles.input}

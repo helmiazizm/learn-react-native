@@ -3,10 +3,10 @@ import clientService from './ApiClient';
 const LoginService = () => {
   const {post} = clientService();
 
-  const callLoginService = async (username, password) => {
+  const callLoginService = async (email, password) => {
     try {
       let data = await post('/login', {
-        username: username,
+        email: email,
         password: password,
       });
       return data;

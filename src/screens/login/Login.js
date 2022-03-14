@@ -8,14 +8,14 @@ import {goToScreen} from '../../navigation/NavigationHelper';
 export const Login = service => {
   const {callLoginService} = service();
   const [form, setForm] = useState({
-    username: '',
+    email: '',
     password: '',
   });
 
-  const changeUsername = e => {
+  const changeEmail = e => {
     setForm({
       ...form,
-      username: e.nativeEvent.text,
+      email: e.nativeEvent.text,
     });
   };
 
@@ -28,7 +28,7 @@ export const Login = service => {
 
   const handleSubmit = async () => {
     try {
-      const response = await callLoginService(form.username, form.password);
+      const response = await callLoginService(form.email, form.password);
       goToScreen(MATERIAL_PATH, true);
     } catch (error) {
       console.log(error);
@@ -37,7 +37,7 @@ export const Login = service => {
 
   return {
     form,
-    changeUsername,
+    changeEmail,
     changePassword,
     handleSubmit,
   };
