@@ -3,8 +3,15 @@ import {useState} from 'react';
 import * as Yup from 'yup';
 
 export const Menu = service => {
-  const {callMenuService, postMenuService, deleteMenuById} = service();
+  const {
+    callMenuService,
+    postMenuService,
+    putMenuService,
+    deleteMenuById,
+    callMenuById,
+  } = service();
   const [data, setData] = useState([]);
+  const [dataById, setDataById] = useState({});
 
   const addMenu = async form => {
     try {
@@ -15,10 +22,28 @@ export const Menu = service => {
     }
   };
 
+  const updateMenu = async form => {
+    try {
+      const response = await putMenuService(form);
+      console.log('responsemenu', response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getMenu = async () => {
     try {
       const response = await callMenuService();
       setData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getMenuById = async id => {
+    try {
+      const res = await callMenuById(id);
+      setDataById(res);
     } catch (error) {
       console.log(error);
     }
@@ -35,8 +60,12 @@ export const Menu = service => {
 
   return {
     data,
+    dataById,
     addMenu,
     getMenu,
+    updateMenu,
     delMenu,
+    getMenuById,
+    setDataById,
   };
 };

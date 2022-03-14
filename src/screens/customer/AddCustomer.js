@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   Button,
   Modal,
@@ -13,7 +13,14 @@ import {
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 
-const AddCustomer = ({addCustomer, isVisible, setVisible}) => {
+const AddCustomer = ({
+  addCustomer,
+  isVisible,
+  setVisible,
+  dataById,
+  setDataById,
+  updateCustomer,
+}) => {
   const addCustomerSchema = Yup.object({
     id: Yup.string().required('ID required'),
     nama: Yup.string().required('Name required'),
@@ -30,21 +37,33 @@ const AddCustomer = ({addCustomer, isVisible, setVisible}) => {
     },
     validationSchema: addCustomerSchema,
     onSubmit: async values => {
-      await addCustomer(values);
-      setVisible(!isVisible);
+      if (dataById.id) {
+        await updateCustomer(values);
+        setVisible(!isVisible);
+        setDataById({});
+      } else {
+        await addCustomer(values);
+        setVisible(!isVisible);
+        setDataById({});
+      }
+      setFieldValue('id', '');
+      setFieldValue('nama', '');
+      setFieldValue('email', '');
+      setFieldValue('alamat', '');
     },
   });
 
-  const {
-    setFieldValue,
-    handleBlur,
-    errors,
-    touched,
-    getFieldProps,
-    handleChange,
-    handleSubmit,
-    values,
-  } = formik;
+  useEffect(() => {
+    if (dataById.id) {
+      setFieldValue('id', dataById.id);
+      setFieldValue('nama', dataById.nama);
+      setFieldValue('email', dataById.email);
+      setFieldValue('alamat', dataById.alamat);
+    }
+  }, [dataById.id]);
+
+  const {setFieldValue, handleBlur, errors, touched, handleSubmit, values} =
+    formik;
 
   return (
     <Modal
@@ -67,7 +86,8 @@ const AddCustomer = ({addCustomer, isVisible, setVisible}) => {
             style={styles.textInput}
             onChangeText={e => setFieldValue('id', e)}
             onBlur={handleBlur('id')}
-            // value={values.idaa}
+            value={values.id}
+            editable={dataById.id ? false : true}
           />
 
           <View style={styles.labelPlacement}>
@@ -79,6 +99,7 @@ const AddCustomer = ({addCustomer, isVisible, setVisible}) => {
           <TextInput
             style={styles.textInput}
             onChangeText={e => setFieldValue('nama', e)}
+            value={values.nama}
           />
           <View style={styles.labelPlacement}>
             <Text style={styles.textLabel}>Email </Text>
@@ -89,6 +110,7 @@ const AddCustomer = ({addCustomer, isVisible, setVisible}) => {
           <TextInput
             style={styles.textInput}
             onChangeText={e => setFieldValue('email', e)}
+            value={values.email}
           />
           <View style={styles.labelPlacement}>
             <Text style={styles.textLabel}>Alamat</Text>
@@ -99,6 +121,7 @@ const AddCustomer = ({addCustomer, isVisible, setVisible}) => {
           <TextInput
             style={styles.textInput}
             onChangeText={e => setFieldValue('alamat', e)}
+            value={values.alamat}
           />
           <View style={styles.buttonPlacement}>
             <Button
@@ -110,7 +133,14 @@ const AddCustomer = ({addCustomer, isVisible, setVisible}) => {
               color="green"
             />
             <Button
-              onPress={() => setVisible(!isVisible)}
+              onPress={() => {
+                setVisible(!isVisible);
+                setDataById({});
+                setFieldValue('id', '');
+                setFieldValue('nama', '');
+                setFieldValue('email', '');
+                setFieldValue('alamat', '');
+              }}
               title="cancel"
               color="red"
             />

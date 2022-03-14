@@ -1,7 +1,7 @@
 import clientService from './ApiClient';
 
 const MenuService = () => {
-  const {get, post, del} = clientService();
+  const {get, post, del, put} = clientService();
 
   const callMenuService = async () => {
     try {
@@ -14,9 +14,31 @@ const MenuService = () => {
     }
   };
 
+  const callMenuById = async id => {
+    try {
+      let data = await get(`/menus/${id}`);
+      console.log('datamaterial', data);
+      return data;
+    } catch (error) {
+      console.log('error MenuService', error);
+      throw error;
+    }
+  };
+
   const postMenuService = async form => {
     try {
       let data = await post('/menus', form);
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log('error post', error);
+      throw error;
+    }
+  };
+
+  const putMenuService = async form => {
+    try {
+      let data = await put('/menus', form);
       console.log(data);
       return data;
     } catch (error) {
@@ -38,6 +60,8 @@ const MenuService = () => {
     callMenuService,
     postMenuService,
     deleteMenuById,
+    callMenuById,
+    putMenuService,
   };
 };
 

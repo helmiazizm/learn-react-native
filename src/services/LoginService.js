@@ -1,4 +1,3 @@
-import {Alert} from 'react-native';
 import {goToScreen} from '../navigation/NavigationHelper';
 import {HOME_PATH, WELCOME_PATH} from '../navigation/NavigationPath';
 import clientService from './ApiClient';
@@ -12,8 +11,6 @@ const LoginService = () => {
       console.log('datadata', data);
       if (data !== undefined) {
         goToScreen(HOME_PATH, true);
-      } else {
-        Alert.alert('Unauthorized user');
       }
     } catch (error) {
       console.log('error loginservice', error);

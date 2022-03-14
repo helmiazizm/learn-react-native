@@ -12,7 +12,15 @@ import FooterBar from '../../components/FooterBar';
 import Icon from 'react-native-vector-icons/AntDesign';
 import AddMenu from './AddMenu';
 
-const MenuInfoModal = ({info, isVisible, setVisible, delMenu}) => (
+const MenuInfoModal = ({
+  info,
+  isVisible,
+  isMenuVisible,
+  setVisible,
+  setMenuVisible,
+  delMenu,
+  getMenuById,
+}) => (
   <Modal
     animationType="fade"
     transparent={true}
@@ -33,8 +41,10 @@ const MenuInfoModal = ({info, isVisible, setVisible, delMenu}) => (
               styles.modalButton,
               {backgroundColor: 'orange', marginRight: 5},
             ]}
-            onPress={() => {
+            onPress={async () => {
+              await getMenuById(info.id);
               setVisible(!isVisible);
+              setMenuVisible(!isMenuVisible);
             }}>
             <Text style={{color: 'white'}}>Edit</Text>
           </TouchableOpacity>
@@ -45,7 +55,7 @@ const MenuInfoModal = ({info, isVisible, setVisible, delMenu}) => (
             ]}
             onPress={async () => {
               await delMenu(info.id);
-              setVisible(!isVisible)
+              setVisible(!isVisible);
             }}>
             <Text style={{color: 'white'}}>Delete</Text>
           </TouchableOpacity>
@@ -81,7 +91,16 @@ const MenuItem = ({info, onSetModalInfo, onSetModalVisible, title}) => {
 };
 
 const MenuScreen = ({menu}) => {
-  const {data, addMenu, getMenu, delMenu} = menu();
+  const {
+    data,
+    dataById,
+    addMenu,
+    getMenu,
+    delMenu,
+    getMenuById,
+    setDataById,
+    updateMenu,
+  } = menu();
   const [modalVisible, setModalVisible] = useState(false);
   const [addMenuVisible, setAddMenuVisible] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
@@ -113,11 +132,17 @@ const MenuScreen = ({menu}) => {
         info={modalInfo}
         setVisible={setModalVisible}
         isVisible={modalVisible}
+        setMenuVisible={setAddMenuVisible}
+        isMenuVisible={addMenuVisible}
         delMenu={delMenu}
+        getMenuById={getMenuById}
       />
       <AddMenu
         addMenu={addMenu}
+        setDataById={setDataById}
         isVisible={addMenuVisible}
+        dataById={dataById}
+        updateMenu={updateMenu}
         setVisible={setAddMenuVisible}
       />
       <FlatList

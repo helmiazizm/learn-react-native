@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   Button,
   Modal,
@@ -11,7 +11,14 @@ import {
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 
-const AddTable = ({addTable, isVisible, setVisible}) => {
+const AddTable = ({
+  addTable,
+  isVisible,
+  setVisible,
+  dataById,
+  setDataById,
+  updateTable,
+}) => {
   const addTableSchema = Yup.object({
     id: Yup.string().required('ID required'),
     nomor: Yup.string().required('Number required'),
@@ -31,10 +38,30 @@ const AddTable = ({addTable, isVisible, setVisible}) => {
     },
     validationSchema: addTableSchema,
     onSubmit: async values => {
-      await addTable(values);
-      setVisible(!isVisible);
+      if (dataById.id) {
+        await updateTable(values);
+        setVisible(!isVisible);
+        setDataById({});
+      } else {
+        await addTable(values);
+        setVisible(!isVisible);
+        setDataById({});
+      }
+      setFieldValue('id', '');
+      setFieldValue('nomor', '');
+      setFieldValue('status', '');
     },
   });
+
+  useEffect(() => {
+    if (dataById.id) {
+      setFieldValue('id', dataById.id);
+      setFieldValue('nomor', dataById.nomor);
+      setFieldValue('status', `${dataById.status}`);
+    }
+  }, [dataById.id]);
+
+  console.log('dataByid', dataById);
 
   const {setFieldValue, handleBlur, errors, touched, handleSubmit, values} =
     formik;
@@ -59,6 +86,8 @@ const AddTable = ({addTable, isVisible, setVisible}) => {
             style={styles.textInput}
             onChangeText={e => setFieldValue('id', e)}
             onBlur={handleBlur('id')}
+            value={values.id}
+            editable={dataById.id ? false : true}
           />
           <View style={styles.labelPlacement}>
             <Text style={styles.textLabel}>Nomor</Text>
@@ -69,6 +98,7 @@ const AddTable = ({addTable, isVisible, setVisible}) => {
           <TextInput
             style={styles.textInput}
             onChangeText={e => setFieldValue('nomor', e)}
+            value={values.nomor}
           />
           <View style={styles.labelPlacement}>
             <Text style={styles.textLabel}>Status</Text>
@@ -79,6 +109,7 @@ const AddTable = ({addTable, isVisible, setVisible}) => {
           <TextInput
             style={styles.textInput}
             onChangeText={e => setFieldValue('status', e)}
+            value={values.status}
           />
           <View style={styles.buttonPlacement}>
             <Button
@@ -90,7 +121,13 @@ const AddTable = ({addTable, isVisible, setVisible}) => {
               color="green"
             />
             <Button
-              onPress={() => setVisible(!isVisible)}
+              onPress={() => {
+                setVisible(!isVisible);
+                setDataById({});
+                setFieldValue('id', '');
+                setFieldValue('nomor', '');
+                setFieldValue('status', '');
+              }}
               title="cancel"
               color="red"
             />

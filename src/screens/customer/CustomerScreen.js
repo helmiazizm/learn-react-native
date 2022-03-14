@@ -13,7 +13,15 @@ import {goToScreen} from '../../navigation/NavigationHelper';
 import {WELCOME_PATH} from '../../navigation/NavigationPath';
 import AddCustomer from './AddCustomer';
 
-const CustomerInfoModal = ({info, isVisible, setVisible, delCustomer}) => (
+const CustomerInfoModal = ({
+  info,
+  isVisible,
+  setVisible,
+  delCustomer,
+  isCustomerVisible,
+  setCustomerVisible,
+  getCustomerById,
+}) => (
   <Modal
     animationType="fade"
     transparent={true}
@@ -38,8 +46,10 @@ const CustomerInfoModal = ({info, isVisible, setVisible, delCustomer}) => (
               styles.modalButton,
               {backgroundColor: 'orange', marginRight: 5},
             ]}
-            onPress={() => {
+            onPress={async () => {
+              await getCustomerById(info.id);
               setVisible(!isVisible);
+              setCustomerVisible(!isCustomerVisible);
             }}>
             <Text style={{color: 'white'}}>Edit</Text>
           </TouchableOpacity>
@@ -86,7 +96,16 @@ const CustomerItem = ({info, onSetModalInfo, onSetModalVisible, title}) => {
 };
 
 const CustomerScreen = ({customer}) => {
-  const {data, addCustomer, getCustomer, delCustomer} = customer();
+  const {
+    data,
+    dataById,
+    setDataById,
+    updateCustomer,
+    getCustomerById,
+    getCustomer,
+    addCustomer,
+    delCustomer,
+  } = customer();
   const [modalVisible, setModalVisible] = useState(false);
   const [addCustomerModal, setAddCustomerModal] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
@@ -124,11 +143,17 @@ const CustomerScreen = ({customer}) => {
         setVisible={setModalVisible}
         isVisible={modalVisible}
         delCustomer={delCustomer}
+        isCustomerVisible={addCustomerModal}
+        setCustomerVisible={setAddCustomerModal}
+        getCustomerById={getCustomerById}
       />
       <AddCustomer
         addCustomer={addCustomer}
         isVisible={addCustomerModal}
         setVisible={setAddCustomerModal}
+        dataById={dataById}
+        setDataById={setDataById}
+        updateCustomer={updateCustomer}
       />
       <FlatList
         data={data}

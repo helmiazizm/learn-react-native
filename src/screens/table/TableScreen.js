@@ -7,11 +7,20 @@ import {
   View,
   Modal,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import FooterBar from '../../components/FooterBar';
 import AddTable from './AddTable';
 
-const TableInfoModal = ({info, isVisible, setVisible, delTable}) => (
+const TableInfoModal = ({
+  info,
+  isVisible,
+  setVisible,
+  delTable,
+  setTableVisible,
+  isTableVisible,
+  getTableById,
+}) => (
   <Modal
     animationType="fade"
     transparent={true}
@@ -34,8 +43,10 @@ const TableInfoModal = ({info, isVisible, setVisible, delTable}) => (
               styles.modalButton,
               {backgroundColor: 'orange', marginRight: 5},
             ]}
-            onPress={() => {
+            onPress={async () => {
+              await getTableById(info.id);
               setVisible(!isVisible);
+              setTableVisible(!isTableVisible);
             }}>
             <Text style={{color: 'white'}}>Edit</Text>
           </TouchableOpacity>
@@ -45,8 +56,12 @@ const TableInfoModal = ({info, isVisible, setVisible, delTable}) => (
               {backgroundColor: 'red', marginHorizontal: 5},
             ]}
             onPress={async () => {
-              await delTable(info.id);
-              setVisible(!isVisible);
+              if (info.status === 'Unavailable') {
+                Alert.alert('Cannot delete unavailable table');
+              } else {
+                await delTable(info.id);
+                setVisible(!isVisible);
+              }
             }}>
             <Text style={{color: 'white'}}>Delete</Text>
           </TouchableOpacity>
@@ -82,7 +97,16 @@ const TableItem = ({info, onSetModalInfo, onSetModalVisible, title}) => {
 };
 
 const TableScreen = ({table}) => {
-  const {data, addTable, getTable, delTable} = table();
+  const {
+    data,
+    dataById,
+    updateTable,
+    getTableById,
+    setDataById,
+    addTable,
+    getTable,
+    delTable,
+  } = table();
   const [modalVisible, setModalVisible] = useState(false);
   const [addTableVisible, setAddTableVisible] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
@@ -104,11 +128,6 @@ const TableScreen = ({table}) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.headerPosition}>
         <Text style={styles.headerText}>Table</Text>
-        {/* <TouchableOpacity
-          style={styles.button}
-          onPress={() => goToScreen(WELCOME_PATH, true)}>
-          <Text style={{fontSize: 16, fontWeight: 'bold'}}>Logout</Text>
-        </TouchableOpacity> */}
       </View>
       <TouchableOpacity
         style={styles.addTableButton}
@@ -120,6 +139,9 @@ const TableScreen = ({table}) => {
         setVisible={setModalVisible}
         isVisible={modalVisible}
         delTable={delTable}
+        setTableVisible={setAddTableVisible}
+        isTableVisible={addTableVisible}
+        getTableById={getTableById}
       />
       <FlatList
         data={data}
@@ -130,6 +152,9 @@ const TableScreen = ({table}) => {
         addTable={addTable}
         isVisible={addTableVisible}
         setVisible={setAddTableVisible}
+        dataById={dataById}
+        setDataById={setDataById}
+        updateTable={updateTable}
       />
       <FooterBar />
     </SafeAreaView>

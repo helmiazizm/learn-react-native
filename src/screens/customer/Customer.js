@@ -1,9 +1,15 @@
 import {useState} from 'react';
 
 export const Customer = service => {
-  const {callCustomerService, postCustomerService, deleteCustomerById} =
-    service();
+  const {
+    callCustomerService,
+    postCustomerService,
+    deleteCustomerById,
+    callCustomerById,
+    putCustomerService,
+  } = service();
   const [data, setData] = useState([]);
+  const [dataById, setDataById] = useState({});
 
   const getCustomer = async () => {
     try {
@@ -14,9 +20,27 @@ export const Customer = service => {
     }
   };
 
+  const updateCustomer = async form => {
+    try {
+      const response = await putCustomerService(form);
+      console.log('responsemenu', response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const addCustomer = async form => {
     try {
       await postCustomerService(form);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getCustomerById = async id => {
+    try {
+      const res = await callCustomerById(id);
+      setDataById(res);
     } catch (error) {
       console.log(error);
     }
@@ -33,6 +57,10 @@ export const Customer = service => {
 
   return {
     data,
+    dataById,
+    setDataById,
+    updateCustomer,
+    getCustomerById,
     getCustomer,
     addCustomer,
     delCustomer,

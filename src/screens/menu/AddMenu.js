@@ -1,17 +1,16 @@
-import React from 'react';
-import {
-  Button,
-  Modal,
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TextInput,
-} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Button, Modal, StyleSheet, Text, View, TextInput} from 'react-native';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 
-const AddMenu = ({addMenu, isVisible, setVisible}) => {
+const AddMenu = ({
+  addMenu,
+  setDataById,
+  isVisible,
+  setVisible,
+  updateMenu,
+  dataById,
+}) => {
   const addMenuSchema = Yup.object({
     id: Yup.string().required('ID required'),
     name: Yup.string().required('Name required'),
@@ -28,10 +27,30 @@ const AddMenu = ({addMenu, isVisible, setVisible}) => {
     },
     validationSchema: addMenuSchema,
     onSubmit: async values => {
-      await addMenu(values);
-      setVisible(!isVisible);
+      if (dataById.id) {
+        await updateMenu(values);
+        setVisible(!isVisible);
+        setDataById({});
+      } else {
+        await addMenu(values);
+        setVisible(!isVisible);
+        setDataById({});
+      }
+      setFieldValue('id', '');
+      setFieldValue('name', '');
+      setFieldValue('price', '');
     },
   });
+
+  useEffect(() => {
+    if (dataById.id) {
+      setFieldValue('id', dataById.id);
+      setFieldValue('name', dataById.name);
+      setFieldValue('price', `${dataById.price}`);
+    }
+  }, [dataById.id]);
+
+  console.log('databyid', dataById);
 
   const {setFieldValue, handleBlur, errors, touched, handleSubmit, values} =
     formik;
@@ -56,7 +75,8 @@ const AddMenu = ({addMenu, isVisible, setVisible}) => {
             style={styles.textInput}
             onChangeText={e => setFieldValue('id', e)}
             onBlur={handleBlur('id')}
-            // value={values.idaa}
+            value={values.id}
+            editable={dataById.id ? false : true}
           />
           <View style={styles.labelPlacement}>
             <Text style={styles.textLabel}>Name</Text>
@@ -67,6 +87,7 @@ const AddMenu = ({addMenu, isVisible, setVisible}) => {
           <TextInput
             style={styles.textInput}
             onChangeText={e => setFieldValue('name', e)}
+            value={values.name}
           />
           <View style={styles.labelPlacement}>
             <Text style={styles.textLabel}>Price</Text>
@@ -77,18 +98,25 @@ const AddMenu = ({addMenu, isVisible, setVisible}) => {
           <TextInput
             style={styles.textInput}
             onChangeText={e => setFieldValue('price', e)}
+            value={values.price}
           />
           <View style={styles.buttonPlacement}>
             <Button
               onPress={() => {
                 handleSubmit();
-                console.log('valuemenu', values);
+                console.log(values);
               }}
               title="submit"
               color="green"
             />
             <Button
-              onPress={() => setVisible(!isVisible)}
+              onPress={() => {
+                setVisible(!isVisible);
+                setDataById({});
+                setFieldValue('id', '');
+                setFieldValue('name', '');
+                setFieldValue('price', '');
+              }}
               title="cancel"
               color="red"
             />

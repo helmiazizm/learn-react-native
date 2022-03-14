@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {API_URL} from '@env';
+import {Alert} from 'react-native';
 
 const client = axios.create({
   baseURL: API_URL,
@@ -14,6 +15,7 @@ const clientService = () => {
       if (error.response) {
         if (error.response.status === 401) {
           console.log('Unauthorized');
+          Alert.alert('Unauthorized user');
         }
       } else {
         console.log('Error');
@@ -39,7 +41,16 @@ const clientService = () => {
     }
   };
 
-  return {post, get, del};
+  const put = async (url, params) => {
+    try {
+      const result = await client.put(url, params);
+      return result.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return {post, get, del, put};
 };
 
 export default clientService;
