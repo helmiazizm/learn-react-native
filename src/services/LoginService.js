@@ -9,7 +9,6 @@ const LoginService = () => {
         username: username,
         password: password,
       });
-      console.log('data', data);
       return data;
     } catch (error) {
       console.log('error loginservice', error);

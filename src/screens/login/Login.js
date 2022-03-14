@@ -27,10 +27,8 @@ export const Login = service => {
   };
 
   const handleSubmit = async () => {
-    console.log(form);
     try {
       const response = await callLoginService(form.username, form.password);
-      console.log('response', response);
       goToScreen(MATERIAL_PATH, true);
     } catch (error) {
       console.log(error);

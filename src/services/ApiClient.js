@@ -1,9 +1,22 @@
 import axios from 'axios';
 import {API_URL} from '@env';
+import {goToLogin} from '../navigation/NavigationHelper';
 
 const client = axios.create({
   baseURL: API_URL,
 });
+
+client.interceptors.response.use(
+  response => {
+    return response;
+  },
+  error => {
+    if (error.response.status === 401) {
+      goToLogin();
+    }
+    return Promise.reject(error)
+  },
+);
 
 const clientService = () => {
   const post = async (url, params) => {
