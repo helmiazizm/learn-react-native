@@ -9,8 +9,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import FooterBar from '../../components/FooterBar';
-import {goToScreen} from '../../navigation/NavigationHelper';
-import {WELCOME_PATH} from '../../navigation/NavigationPath';
 
 const TableInfoModal = ({info, isVisible, setVisible}) => (
   <Modal
@@ -25,7 +23,9 @@ const TableInfoModal = ({info, isVisible, setVisible}) => (
         <Text style={styles.itemTitleText}>Table No. {info.nomor}</Text>
         <Text style={styles.itemDescriptionText}>
           <Text style={{fontWeight: 'bold'}}>Status: </Text>
-          {info.status}
+          <Text style={{color: info.status === 'Available' ? 'green' : 'red'}}>
+            {info.status}
+          </Text>
         </Text>
         <View style={{height: 15, marginTop: 20}}>
           <TouchableOpacity
@@ -84,6 +84,16 @@ const TableScreen = ({table}) => {
           <Text style={{fontSize: 16, fontWeight: 'bold'}}>Logout</Text>
         </TouchableOpacity> */}
       </View>
+      <TouchableOpacity style={styles.button}>
+        <Text
+          style={{
+            color: 'white',
+            fontSize: 16,
+            fontWeight: 'bold',
+          }}>
+          Add Table
+        </Text>
+      </TouchableOpacity>
       <TableInfoModal
         info={modalInfo}
         setVisible={setModalVisible}
@@ -107,7 +117,7 @@ const styles = StyleSheet.create({
   headerPosition: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginVertical: 20,
+    marginTop: 20,
   },
   headerText: {
     alignSelf: 'center',
@@ -120,8 +130,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#ECA6A6',
     alignItems: 'center',
     width: 100,
-    margin: 12,
+    margin: 16,
     padding: 12,
+    alignSelf: 'center',
+    // marginHorizontal: 16,
+    borderRadius: 5,
   },
   item: {
     backgroundColor: '#FCBF49',

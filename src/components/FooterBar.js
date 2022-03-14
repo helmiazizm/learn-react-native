@@ -4,6 +4,7 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import {goToScreen} from '../navigation/NavigationHelper';
 import {
   CUSTOMER_PATH,
+  HOME_PATH,
   MENU_PATH,
   TABLE_PATH,
 } from '../navigation/NavigationPath';
@@ -20,8 +21,14 @@ const FooterBarItem = ({screen, text, index}) => {
 };
 
 const FooterBar = () => {
-  let items = ['Home','Menus', 'Tables', 'Customers', 'Logout'];
-  const screen = [MENU_PATH, TABLE_PATH, CUSTOMER_PATH];
+  let items = ['Home', 'Menus', 'Tables', 'Customers'];
+  const screen = [HOME_PATH, MENU_PATH, TABLE_PATH, CUSTOMER_PATH];
+  const [modalDropdownValue, setModalDropdownValue] = useState(0);
+
+  const handleModalDropdown = index => {
+    setModalDropdownValue(index);
+    goToScreen(screen[index], true);
+  };
 
   return (
     <View style={styles.container}>
@@ -36,7 +43,16 @@ const FooterBar = () => {
         );
       })}
       <Logout /> */}
-      <ModalDropdown defaultValue={items[0]} options={items} />
+      <ModalDropdown
+        defaultValue="Go To"
+        options={items}
+        style={styles.item}
+        onSelect={index => goToScreen(screen[index], true)}
+        textStyle={styles.itemText}
+        dropdownStyle={{width: 200, alignSelf: 'center'}}
+        dropdownTextStyle={{color: 'black', fontSize: 16}}
+      />
+      <Logout />
     </View>
   );
 };

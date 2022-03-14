@@ -12,6 +12,7 @@ const actionState = {
     'Mandi pagi',
   ],
   allFinished: [],
+  modalValue: 0,
 };
 
 export const actionReducer = (state = actionState, action) => {
@@ -39,6 +40,11 @@ export const actionReducer = (state = actionState, action) => {
           allFinished: [...state.allFinished, action.text],
         };
       }
+    case ActionType.SCREEN:
+      return {
+        ...state,
+        modalValue: action.value,
+      };
     default:
       return state;
   }

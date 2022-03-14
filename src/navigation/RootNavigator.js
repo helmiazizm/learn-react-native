@@ -6,6 +6,7 @@ import MenuScreen from '../screens/menu/MenuScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import {
   CUSTOMER_PATH,
+  HOME_PATH,
   LOGIN_PATH,
   MENU_PATH,
   TABLE_PATH,
@@ -22,6 +23,7 @@ import {Table} from '../screens/table/Table';
 import TableService from '../services/TableService';
 import {Customer} from '../screens/customer/Customer';
 import CustomerService from '../services/CustomerService';
+import HomeScreen from '../screens/home/HomeScreen';
 
 const RootNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -36,6 +38,7 @@ const RootNavigator = () => {
             )}
           </Stack.Screen>
           <Stack.Group>
+            <Stack.Screen name={HOME_PATH} component={HomeScreen} />
             <Stack.Screen name={MENU_PATH}>
               {props => (
                 <MenuScreen {...props} menu={() => Menu(MenuService)} />

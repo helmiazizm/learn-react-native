@@ -88,6 +88,16 @@ const CustomerScreen = ({customer}) => {
           <Text style={{fontSize: 16, fontWeight: 'bold'}}>Logout</Text>
         </TouchableOpacity> */}
       </View>
+      <TouchableOpacity style={styles.button}>
+        <Text
+          style={{
+            color: 'white',
+            fontSize: 16,
+            fontWeight: 'bold',
+          }}>
+          Add Customer
+        </Text>
+      </TouchableOpacity>
       <CustomerInfoModal
         info={modalInfo}
         setVisible={setModalVisible}
@@ -111,7 +121,7 @@ const styles = StyleSheet.create({
   headerPosition: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginVertical: 20,
+    marginTop: 20,
   },
   headerText: {
     alignSelf: 'center',
@@ -123,9 +133,12 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#ECA6A6',
     alignItems: 'center',
-    width: 100,
-    margin: 12,
+    width: 130,
+    margin: 16,
     padding: 12,
+    alignSelf: 'center',
+    // marginHorizontal: 16,
+    borderRadius: 5,
   },
   item: {
     backgroundColor: '#FCBF49',

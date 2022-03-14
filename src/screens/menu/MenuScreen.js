@@ -77,9 +77,20 @@ const MenuScreen = ({menu}) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.headerPosition}>
         <Text style={styles.headerText}>
-          Menu <Icon name="upcircleo" size={30} />
+          Menu
+          {/* <Icon name="upcircleo" size={20} /> */}
         </Text>
       </View>
+      <TouchableOpacity style={styles.button}>
+        <Text
+          style={{
+            color: 'white',
+            fontSize: 16,
+            fontWeight: 'bold',
+          }}>
+          Add Menu
+        </Text>
+      </TouchableOpacity>
       <MenuInfoModal
         info={modalInfo}
         setVisible={setModalVisible}
@@ -103,7 +114,7 @@ const styles = StyleSheet.create({
   headerPosition: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginVertical: 20,
+    marginTop: 20,
   },
   headerText: {
     alignSelf: 'center',
@@ -116,8 +127,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#ECA6A6',
     alignItems: 'center',
     width: 100,
-    margin: 12,
+    margin: 16,
     padding: 12,
+    alignSelf:'center',
+    // marginHorizontal: 16,
+    borderRadius: 5,
   },
   item: {
     backgroundColor: '#FCBF49',

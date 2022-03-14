@@ -1,5 +1,6 @@
 export const WELCOME_PATH = 'WELCOME';
 export const LOGIN_PATH = 'LOGIN';
+export const HOME_PATH = 'HOME';
 export const MENU_PATH = 'MENU';
 export const MENU_CREATION = 'MENU_CREATE';
 export const TABLE_PATH = 'TABLE';
