@@ -7,27 +7,42 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import {Login} from './Login';
 
 const LoginScreen = ({login}) => {
-  const {changeEmail, changePassword, handleSubmit} = login();
+  const {handleSubmit, setFieldValue, errors, touched} = login();
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.form}>
-        <Text style={styles.title}>Email</Text>
-        <TextInput style={styles.input} onChange={changeEmail} />
-        <Text style={styles.title}>Password</Text>
+        <View style={styles.labelPlacement}>
+          <Text style={styles.title}>Email</Text>
+          <Text style={styles.warning}>
+            {errors.email && touched.email ? errors.email : null}
+          </Text>
+        </View>
         <TextInput
           style={styles.input}
-          onChange={changePassword}
+          onChangeText={e => setFieldValue('email', e)}
+        />
+
+        <View style={styles.labelPlacement}>
+          <Text style={styles.title}>Password</Text>
+          <Text style={styles.warning}>
+            {errors.password && touched.password ? errors.password : null}
+          </Text>
+        </View>
+        <TextInput
+          style={styles.input}
+          onChangeText={e => setFieldValue('password', e)}
           secureTextEntry={true}
         />
         <View style={styles.buttonPosition}>
           <TouchableOpacity
             style={styles.button}
             onPress={() => handleSubmit()}>
-            <Text style={{fontSize: 16, fontWeight: 'bold'}}>Login</Text>
+            <Text style={{fontSize: 16, fontWeight: 'bold', color: 'black'}}>
+              Login
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -38,8 +53,12 @@ const LoginScreen = ({login}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#D18CE0',
+    backgroundColor: '#D77FA1',
     justifyContent: 'center',
+  },
+  labelPlacement: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   form: {
     flex: 1,
@@ -58,7 +77,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   button: {
-    backgroundColor: '#ECA6A6',
+    backgroundColor: '#FCBF49',
     alignItems: 'center',
     width: 100,
     margin: 12,
@@ -68,10 +87,18 @@ const styles = StyleSheet.create({
     height: 40,
     margin: 12,
     borderWidth: 1,
+    borderRadius: 5,
     borderColor: '#EEEEEE',
     color: 'black',
     padding: 10,
     backgroundColor: '#E2DEA9',
+  },
+  warning: {
+    color: 'red',
+    fontSize: 12,
+    fontWeight: 'bold',
+    marginRight: 12,
+    alignSelf: 'flex-end',
   },
 });
 

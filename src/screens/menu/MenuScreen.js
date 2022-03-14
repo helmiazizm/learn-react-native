@@ -12,7 +12,7 @@ import FooterBar from '../../components/FooterBar';
 import Icon from 'react-native-vector-icons/AntDesign';
 import AddMenu from './AddMenu';
 
-const MenuInfoModal = ({info, isVisible, setVisible}) => (
+const MenuInfoModal = ({info, isVisible, setVisible, delMenu}) => (
   <Modal
     animationType="fade"
     transparent={true}
@@ -27,13 +27,37 @@ const MenuInfoModal = ({info, isVisible, setVisible}) => (
           <Text style={{fontWeight: 'bold'}}>Price: </Text>
           Rp. {info.price},00
         </Text>
-        <View style={{height: 15, marginTop: 20}}>
+        <View style={styles.buttonPlacement}>
           <TouchableOpacity
-            style={{alignSelf: 'center'}}
+            style={[
+              styles.modalButton,
+              {backgroundColor: 'orange', marginRight: 5},
+            ]}
             onPress={() => {
               setVisible(!isVisible);
             }}>
-            <Text>Close</Text>
+            <Text style={{color: 'white'}}>Edit</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.modalButton,
+              {backgroundColor: 'red', marginHorizontal: 5},
+            ]}
+            onPress={async () => {
+              await delMenu(info.id);
+              setVisible(!isVisible)
+            }}>
+            <Text style={{color: 'white'}}>Delete</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.modalButton,
+              {backgroundColor: 'grey', marginLeft: 5},
+            ]}
+            onPress={() => {
+              setVisible(!isVisible);
+            }}>
+            <Text style={{color: 'white'}}>Close</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -57,7 +81,7 @@ const MenuItem = ({info, onSetModalInfo, onSetModalVisible, title}) => {
 };
 
 const MenuScreen = ({menu}) => {
-  const {data, addMenu, getMenu} = menu();
+  const {data, addMenu, getMenu, delMenu} = menu();
   const [modalVisible, setModalVisible] = useState(false);
   const [addMenuVisible, setAddMenuVisible] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
@@ -78,27 +102,18 @@ const MenuScreen = ({menu}) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerPosition}>
-        <Text style={styles.headerText}>
-          Menu
-          {/* <Icon name="upcircleo" size={20} /> */}
-        </Text>
+        <Text style={styles.headerText}>Menu</Text>
       </View>
       <TouchableOpacity
-        style={styles.button}
+        style={styles.addMenuButton}
         onPress={() => setAddMenuVisible(!addMenuVisible)}>
-        <Text
-          style={{
-            color: 'white',
-            fontSize: 16,
-            fontWeight: 'bold',
-          }}>
-          Add Menu
-        </Text>
+        <Text style={styles.addMenuText}>Add Menu</Text>
       </TouchableOpacity>
       <MenuInfoModal
         info={modalInfo}
         setVisible={setModalVisible}
         isVisible={modalVisible}
+        delMenu={delMenu}
       />
       <AddMenu
         addMenu={addMenu}
@@ -132,7 +147,7 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     color: 'white',
   },
-  button: {
+  addMenuButton: {
     backgroundColor: '#ECA6A6',
     alignItems: 'center',
     width: 100,
@@ -141,6 +156,23 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     // marginHorizontal: 16,
     borderRadius: 5,
+  },
+  addMenuText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  modalButton: {
+    alignSelf: 'center',
+    // backgroundColor: 'grey',
+    padding: 10,
+    borderRadius: 5,
+  },
+
+  buttonPlacement: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginTop: 10,
   },
   item: {
     backgroundColor: '#FCBF49',

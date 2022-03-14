@@ -1,7 +1,7 @@
 import clientService from './ApiClient';
 
 const CustomerService = () => {
-  const {get, post} = clientService();
+  const {get, post, del} = clientService();
 
   const callCustomerService = async () => {
     try {
@@ -24,9 +24,19 @@ const CustomerService = () => {
       throw error;
     }
   };
+
+  const deleteCustomerById = async id => {
+    try {
+      let data = await del('/customers', id);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return {
     callCustomerService,
     postCustomerService,
+    deleteCustomerById,
   };
 };
 

@@ -3,9 +3,8 @@ import {useState} from 'react';
 import * as Yup from 'yup';
 
 export const Menu = service => {
-  const {callMenuService, postMenuService} = service();
+  const {callMenuService, postMenuService, deleteMenuById} = service();
   const [data, setData] = useState([]);
-  
 
   const addMenu = async form => {
     try {
@@ -25,9 +24,19 @@ export const Menu = service => {
     }
   };
 
+  const delMenu = async id => {
+    try {
+      const res = await deleteMenuById(id);
+      console.log('deleteres', res);
+    } catch (error) {
+      console.log('delerror', error);
+    }
+  };
+
   return {
     data,
     addMenu,
     getMenu,
+    delMenu,
   };
 };

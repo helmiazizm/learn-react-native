@@ -1,7 +1,8 @@
 import {useState} from 'react';
 
 export const Customer = service => {
-  const {callCustomerService, postCustomerService} = service();
+  const {callCustomerService, postCustomerService, deleteCustomerById} =
+    service();
   const [data, setData] = useState([]);
 
   const getCustomer = async () => {
@@ -21,9 +22,19 @@ export const Customer = service => {
     }
   };
 
+  const delCustomer = async id => {
+    try {
+      const res = await deleteCustomerById(id);
+      console.log('deleteres', res);
+    } catch (error) {
+      console.log('delerror', error);
+    }
+  };
+
   return {
     data,
     getCustomer,
     addCustomer,
+    delCustomer,
   };
 };

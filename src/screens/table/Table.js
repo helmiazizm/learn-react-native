@@ -1,7 +1,7 @@
 import {useState} from 'react';
 
 export const Table = service => {
-  const {callTableService, postTableService} = service();
+  const {callTableService, postTableService, deleteTableById} = service();
   const [data, setData] = useState([]);
 
   const getTable = async () => {
@@ -22,9 +22,19 @@ export const Table = service => {
     }
   };
 
+  const delTable = async id => {
+    try {
+      const res = await deleteTableById(id);
+      console.log('deleteres', res);
+    } catch (error) {
+      console.log('delerror', error);
+    }
+  };
+
   return {
     data,
     addTable,
     getTable,
+    delTable,
   };
 };

@@ -30,7 +30,16 @@ const clientService = () => {
     }
   };
 
-  return {post, get};
+  const del = async (url, id) => {
+    try {
+      const result = await client.delete(`${url}/${id}`);
+      return result.data;
+    } catch (error) {
+      console.log('errorapiclientdelete');
+    }
+  };
+
+  return {post, get, del};
 };
 
 export default clientService;

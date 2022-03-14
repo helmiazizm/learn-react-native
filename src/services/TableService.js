@@ -1,7 +1,7 @@
 import clientService from './ApiClient';
 
 const TableService = () => {
-  const {get, post} = clientService();
+  const {get, post, del} = clientService();
 
   const callTableService = async () => {
     try {
@@ -24,9 +24,19 @@ const TableService = () => {
       throw error;
     }
   };
+
+  const deleteTableById = async id => {
+    try {
+      let data = await del('/tables', id);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return {
     callTableService,
     postTableService,
+    deleteTableById,
   };
 };
 

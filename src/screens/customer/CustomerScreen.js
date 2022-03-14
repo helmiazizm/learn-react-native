@@ -13,7 +13,7 @@ import {goToScreen} from '../../navigation/NavigationHelper';
 import {WELCOME_PATH} from '../../navigation/NavigationPath';
 import AddCustomer from './AddCustomer';
 
-const CustomerInfoModal = ({info, isVisible, setVisible}) => (
+const CustomerInfoModal = ({info, isVisible, setVisible, delCustomer}) => (
   <Modal
     animationType="fade"
     transparent={true}
@@ -32,13 +32,37 @@ const CustomerInfoModal = ({info, isVisible, setVisible}) => (
           <Text style={{fontWeight: 'bold'}}>Alamat: </Text>
           {info.alamat}
         </Text>
-        <View style={{height: 15, marginTop: 20}}>
+        <View style={styles.buttonPlacement}>
           <TouchableOpacity
-            style={{alignSelf: 'center'}}
+            style={[
+              styles.modalButton,
+              {backgroundColor: 'orange', marginRight: 5},
+            ]}
             onPress={() => {
               setVisible(!isVisible);
             }}>
-            <Text>Close</Text>
+            <Text style={{color: 'white'}}>Edit</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.modalButton,
+              {backgroundColor: 'red', marginHorizontal: 5},
+            ]}
+            onPress={async () => {
+              await delCustomer(info.id);
+              setVisible(!isVisible);
+            }}>
+            <Text style={{color: 'white'}}>Delete</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.modalButton,
+              {backgroundColor: 'grey', marginLeft: 5},
+            ]}
+            onPress={() => {
+              setVisible(!isVisible);
+            }}>
+            <Text style={{color: 'white'}}>Close</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -62,7 +86,7 @@ const CustomerItem = ({info, onSetModalInfo, onSetModalVisible, title}) => {
 };
 
 const CustomerScreen = ({customer}) => {
-  const {data, addCustomer, getCustomer} = customer();
+  const {data, addCustomer, getCustomer, delCustomer} = customer();
   const [modalVisible, setModalVisible] = useState(false);
   const [addCustomerModal, setAddCustomerModal] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
@@ -91,21 +115,15 @@ const CustomerScreen = ({customer}) => {
         </TouchableOpacity> */}
       </View>
       <TouchableOpacity
-        style={styles.button}
+        style={styles.addCustButton}
         onPress={() => setAddCustomerModal(!addCustomerModal)}>
-        <Text
-          style={{
-            color: 'white',
-            fontSize: 16,
-            fontWeight: 'bold',
-          }}>
-          Add Customer
-        </Text>
+        <Text style={styles.addCustText}>Add Customer</Text>
       </TouchableOpacity>
       <CustomerInfoModal
         info={modalInfo}
         setVisible={setModalVisible}
         isVisible={modalVisible}
+        delCustomer={delCustomer}
       />
       <AddCustomer
         addCustomer={addCustomer}
@@ -139,7 +157,7 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     color: 'white',
   },
-  button: {
+  addCustButton: {
     backgroundColor: '#ECA6A6',
     alignItems: 'center',
     width: 130,
@@ -148,6 +166,23 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     // marginHorizontal: 16,
     borderRadius: 5,
+  },
+  addCustText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  modalButton: {
+    alignSelf: 'center',
+    // backgroundColor: 'grey',
+    padding: 10,
+    borderRadius: 5,
+  },
+
+  buttonPlacement: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginTop: 10,
   },
   item: {
     backgroundColor: '#FCBF49',

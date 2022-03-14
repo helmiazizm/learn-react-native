@@ -33,16 +33,8 @@ const AddMenu = ({addMenu, isVisible, setVisible}) => {
     },
   });
 
-  const {
-    setFieldValue,
-    handleBlur,
-    errors,
-    touched,
-    getFieldProps,
-    handleChange,
-    handleSubmit,
-    values,
-  } = formik;
+  const {setFieldValue, handleBlur, errors, touched, handleSubmit, values} =
+    formik;
 
   return (
     <Modal
