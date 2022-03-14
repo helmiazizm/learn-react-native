@@ -2,14 +2,14 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import LoginScreen from '../screens/login/LoginScreen';
-import MaterialScreen from '../screens/material/MaterialScreen';
+import MenuScreen from '../screens/menu/MenuScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
-import {LOGIN_PATH, MATERIAL_PATH, WELCOME_PATH} from './NavigationPath';
+import {LOGIN_PATH, MENU_PATH, WELCOME_PATH} from './NavigationPath';
 import {navigationRef} from './RootNavigation';
 import {Login} from '../screens/login/Login';
 import LoginService from '../services/LoginService';
-import {Material} from '../screens/material/Material';
-import MaterialService from '../services/MaterialService';
+import {Menu} from '../screens/menu/Menu';
+import MenuService from '../services/MenuService';
 
 const RootNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -23,13 +23,8 @@ const RootNavigator = () => {
               <LoginScreen {...props} login={() => Login(LoginService)} />
             )}
           </Stack.Screen>
-          <Stack.Screen name={MATERIAL_PATH}>
-            {props => (
-              <MaterialScreen
-                {...props}
-                material={() => Material(MaterialService)}
-              />
-            )}
+          <Stack.Screen name={MENU_PATH}>
+            {props => <MenuScreen {...props} menu={() => Menu(MenuService)} />}
           </Stack.Screen>
         </Stack.Group>
       </Stack.Navigator>
