@@ -19,8 +19,8 @@ const Logout = () => {
   };
 
   return (
-    <TouchableOpacity style={styles.button} onPress={handleLogout}>
-      <Text style={{fontSize: 16, fontWeight: 'bold'}}>Logout</Text>
+    <TouchableOpacity style={[styles.item]} onPress={handleLogout}>
+      <Text style={styles.itemText}>Logout</Text>
     </TouchableOpacity>
   );
 };
@@ -32,6 +32,17 @@ const styles = StyleSheet.create({
     width: 100,
     margin: 12,
     padding: 12,
+  },
+  item: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ECA6A6',
+  },
+  itemText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 

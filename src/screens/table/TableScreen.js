@@ -8,6 +8,7 @@ import {
   Modal,
   TouchableOpacity,
 } from 'react-native';
+import FooterBar from '../../components/FooterBar';
 import {goToScreen} from '../../navigation/NavigationHelper';
 import {WELCOME_PATH} from '../../navigation/NavigationPath';
 
@@ -21,10 +22,10 @@ const TableInfoModal = ({info, isVisible, setVisible}) => (
     }}>
     <View style={styles.centeredView}>
       <View style={styles.modalView}>
-        <Text style={styles.itemTitleText}>{info.name}</Text>
+        <Text style={styles.itemTitleText}>Table No. {info.nomor}</Text>
         <Text style={styles.itemDescriptionText}>
-          <Text style={{fontWeight: 'bold'}}>Price: </Text>
-          Rp. {info.price},00
+          <Text style={{fontWeight: 'bold'}}>Status: </Text>
+          {info.status}
         </Text>
         <View style={{height: 15, marginTop: 20}}>
           <TouchableOpacity
@@ -49,7 +50,7 @@ const TableItem = ({info, onSetModalInfo, onSetModalVisible, title}) => {
   return (
     <View style={styles.item}>
       <TouchableOpacity onPress={onShowModal} style={{padding: 5}}>
-        <Text style={styles.itemTitleText}>{info.name}</Text>
+        <Text style={styles.itemTitleText}>{info.nomor}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -77,11 +78,11 @@ const TableScreen = ({table}) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.headerPosition}>
         <Text style={styles.headerText}>Table</Text>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.button}
           onPress={() => goToScreen(WELCOME_PATH, true)}>
           <Text style={{fontSize: 16, fontWeight: 'bold'}}>Logout</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <TableInfoModal
         info={modalInfo}
@@ -93,6 +94,7 @@ const TableScreen = ({table}) => {
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />
+      <FooterBar />
     </SafeAreaView>
   );
 };
@@ -101,11 +103,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#D77FA1',
-    padding: 5,
   },
   headerPosition: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    marginVertical: 20,
   },
   headerText: {
     alignSelf: 'center',

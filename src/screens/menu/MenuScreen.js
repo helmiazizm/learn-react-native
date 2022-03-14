@@ -8,9 +8,8 @@ import {
   Modal,
   TouchableOpacity,
 } from 'react-native';
-import Logout from '../../components/Logout';
-import {goToScreen} from '../../navigation/NavigationHelper';
-import {WELCOME_PATH} from '../../navigation/NavigationPath';
+import FooterBar from '../../components/FooterBar';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 const MenuInfoModal = ({info, isVisible, setVisible}) => (
   <Modal
@@ -77,8 +76,9 @@ const MenuScreen = ({menu}) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerPosition}>
-        <Text style={styles.headerText}>Menu</Text>
-        <Logout />
+        <Text style={styles.headerText}>
+          Menu <Icon name="upcircleo" size={30} />
+        </Text>
       </View>
       <MenuInfoModal
         info={modalInfo}
@@ -90,6 +90,7 @@ const MenuScreen = ({menu}) => {
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />
+      <FooterBar />
     </SafeAreaView>
   );
 };
@@ -98,11 +99,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#D77FA1',
-    padding: 5,
   },
   headerPosition: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    marginVertical: 20,
   },
   headerText: {
     alignSelf: 'center',
