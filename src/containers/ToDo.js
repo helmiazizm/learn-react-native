@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     width: '65%',
     color: 'black',
-  },^\s*$^\s*$
+  },
   buttons: {
     flex: 1,
     flexDirection: 'row',
