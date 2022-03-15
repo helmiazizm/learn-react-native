@@ -1,18 +1,17 @@
+import LocalStorage from '../utils/LocalStorage';
 import clientService from './ApiClient';
 
 const LoginService = () => {
-  const {post} = clientService();
-
   const callLoginService = async (username, password) => {
     try {
-      let data = await post('/login', {
-        username: username,
-        password: password,
+      let data = await clientService().post(`/login`, {
+        username,
+        password,
       });
-      return data;
-    } catch (error) {
-      console.log('error loginservice', error);
-      throw error;
+      await LocalStorage().setData('token', data.token);
+    } catch (e) {
+      console.log(e);
+      throw e;
     }
   };
   return {

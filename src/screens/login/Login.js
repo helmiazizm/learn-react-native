@@ -1,44 +1,28 @@
-import axios from 'axios';
-import {useState} from 'react';
-import {API_URL} from '@env';
-import {MATERIAL_PATH} from '../../navigation/NavigationPath';
-import LoginService from '../../services/LoginService';
+import {useDispatch} from 'react-redux';
 import {goToScreen} from '../../navigation/NavigationHelper';
+import {TODO_PATH} from '../../navigation/NavigationPath';
+import {showError, showLoading} from '../../stores/app/AppAction';
+import {login} from '../../stores/login/LoginAction';
 
 export const Login = service => {
+  const dispatch = useDispatch();
   const {callLoginService} = service();
-  const [form, setForm] = useState({
-    username: '',
-    password: '',
-  });
-
-  const changeUsername = e => {
-    setForm({
-      ...form,
-      username: e.nativeEvent.text,
-    });
-  };
-
-  const changePassword = e => {
-    setForm({
-      ...form,
-      password: e.nativeEvent.text,
-    });
-  };
-
-  const handleSubmit = async () => {
+  const onAuthenticate = async (userName, password) => {
     try {
-      const response = await callLoginService(form.username, form.password);
-      goToScreen(MATERIAL_PATH, true);
-    } catch (error) {
-      console.log(error);
+      dispatch(showLoading(true));
+      await callLoginService(userName, password);
+      dispatch(login({isLoggedIn: true}));
+      goToScreen(TODO_PATH, true);
+    } catch (e) {
+      dispatch(showError(e.message));
+    } finally {
+      dispatch(showLoading(false));
     }
   };
 
+  const onDismissError = () => dispatch(showError(''));
   return {
-    form,
-    changeUsername,
-    changePassword,
-    handleSubmit,
+    onAuthenticate,
+    onDismissError,
   };
 };

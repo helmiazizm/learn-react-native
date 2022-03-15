@@ -1,35 +1,45 @@
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from '../screens/login/LoginScreen';
-import MaterialScreen from '../screens/material/MaterialScreen';
-import WelcomeScreen from '../screens/WelcomeScreen';
-import {LOGIN_PATH, MATERIAL_PATH, WELCOME_PATH} from './NavigationPath';
+import ToDoScreen from '../screens/todo/ToDoScreen';
+import {LOGIN_PATH, SPLASH_PATH, TODO_PATH} from './NavigationPath';
+import PopupMenu from '../components/PopupMenu';
 import {navigationRef} from './RootNavigation';
+import SplashScreen from '../screens/SplasScreen';
+import Heading from '../components/Heading';
 import {Login} from '../screens/login/Login';
 import LoginService from '../services/LoginService';
-import {Material} from '../screens/material/Material';
-import MaterialService from '../services/MaterialService';
+import {Todo} from '../screens/todo/Todo';
+import ToDoService from '../services/TodoService';
+
+const Stack = createNativeStackNavigator();
 
 const RootNavigator = () => {
-  const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator initialRouteName={WELCOME_PATH}>
-        <Stack.Group screenOptions={{headerShown: false}}>
-          <Stack.Screen name={WELCOME_PATH} component={WelcomeScreen} />
-          <Stack.Screen name={LOGIN_PATH}>
-            {props => (
-              <LoginScreen {...props} login={() => Login(LoginService)} />
-            )}
-          </Stack.Screen>
-          <Stack.Screen name={MATERIAL_PATH}>
-            {props => (
-              <MaterialScreen
-                {...props}
-                material={() => Material(MaterialService)}
-              />
-            )}
+      <Stack.Navigator initialRouteName={SPLASH_PATH}>
+        <Stack.Screen
+          name={SPLASH_PATH}
+          component={SplashScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen name={LOGIN_PATH} options={{headerShown: false}}>
+          {props => (
+            <LoginScreen {...props} login={() => Login(LoginService)} />
+          )}
+        </Stack.Screen>
+        <Stack.Group
+          screenOptions={({navigation}) => ({
+            headerStyle: {
+              backgroundColor: '#f2f2f2',
+            },
+            headerShadowVisible: false,
+            headerLeft: () => <Heading title={'todos'} />,
+            headerRight: () => <PopupMenu navigation={navigation} />,
+          })}>
+          <Stack.Screen name={TODO_PATH} options={{title: ''}}>
+            {props => <ToDoScreen {...props} todo={() => Todo(ToDoService)} />}
           </Stack.Screen>
         </Stack.Group>
       </Stack.Navigator>
