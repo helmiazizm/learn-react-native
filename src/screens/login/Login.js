@@ -14,7 +14,7 @@ export const Login = service => {
       dispatch(login({isLoggedIn: true}));
       goToScreen(TODO_PATH, true);
     } catch (e) {
-      dispatch(showError(e.message));
+      dispatch(showError(e));
     } finally {
       dispatch(showLoading(false));
     }

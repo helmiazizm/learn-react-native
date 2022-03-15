@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">7.14% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/14</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">7.69% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/13</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -97,24 +97,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -125,24 +125,24 @@ import {TODO_PATH} from '../../navigation/NavigationPath';
 import {showError, showLoading} from '../../stores/app/AppAction';
 import {login} from '../../stores/login/LoginAction';
 &nbsp;
-export const Login = <span class="fstat-no" title="function not covered" >se</span>rvice =&gt; {
-  const dispatch = <span class="cstat-no" title="statement not covered" >useDispatch();</span>
-  const {callLoginService} = <span class="cstat-no" title="statement not covered" >service();</span>
-  const onAuthenticate = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync (userName, password) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >      dispatch(showLoading(true));</span>
-<span class="cstat-no" title="statement not covered" >      await callLoginService(userName, password);</span>
-<span class="cstat-no" title="statement not covered" >      dispatch(login({isLoggedIn: true}));</span>
-<span class="cstat-no" title="statement not covered" >      goToScreen(TODO_PATH, true);</span>
+export const Login = service =&gt; {
+  const dispatch = useDispatch();
+  const {callLoginService} = service();
+  const onAuthenticate = async (userName, password) =&gt; {
+    try {
+      dispatch(showLoading(true));
+      await callLoginService(userName, password);
+      dispatch(login({isLoggedIn: true}));
+      goToScreen(TODO_PATH, true);
     } catch (e) {
-<span class="cstat-no" title="statement not covered" >      dispatch(showError(e.message));</span>
+      dispatch(showError(e));
     } finally {
-<span class="cstat-no" title="statement not covered" >      dispatch(showLoading(false));</span>
+      dispatch(showLoading(false));
     }
   };
 &nbsp;
-  const onDismissError = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >dispatch(showError(''));</span></span>
-<span class="cstat-no" title="statement not covered" >  return {</span>
+  const onDismissError = () =&gt; dispatch(showError(''));
+  return {
     onAuthenticate,
     onDismissError,
   };
@@ -154,7 +154,7 @@ export const Login = <span class="fstat-no" title="function not covered" >se</sp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Tue Mar 15 2022 13:11:57 GMT+0700 (Western Indonesia Time)
+                at Tue Mar 15 2022 14:35:38 GMT+0700 (Western Indonesia Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

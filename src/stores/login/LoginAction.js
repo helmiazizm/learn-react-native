@@ -1,14 +1,14 @@
-import {LOGIN, LOGOUT} from "../../utils/constants";
+import {LOGIN, LOGOUT} from '../../utils/constants';
 
 export function login(loginInfo) {
-    return {
-        type: LOGIN,
-        payload: loginInfo
-    }
+  return {
+    type: LOGIN,
+    payload: loginInfo,
+  };
 }
 
 export function logout() {
-    return {
-        type: LOGOUT,
-    }
+  return {
+    type: LOGOUT,
+  };
 }
